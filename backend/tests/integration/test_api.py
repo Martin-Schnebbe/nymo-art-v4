@@ -8,7 +8,7 @@ import os
 from httpx import AsyncClient
 from unittest.mock import patch
 
-from backend.app.main import create_app
+from app.main import create_app
 
 
 @pytest.fixture
