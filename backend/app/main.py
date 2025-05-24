@@ -5,8 +5,13 @@ FastAPI application entry point
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import logging
+import os
+from dotenv import load_dotenv
 
-from .routes import generations, models
+# Load environment variables
+load_dotenv()
+
+from .routes import generations, models, images, batch
 from .api import setup_exception_handlers
 
 
@@ -33,7 +38,7 @@ def create_app() -> FastAPI:
     # Add CORS middleware
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],  # Configure appropriately for production
+        allow_origins=["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:5176", "http://localhost:5177"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -45,6 +50,8 @@ def create_app() -> FastAPI:
     # Include routers
     app.include_router(generations.router, prefix="/api/v1")
     app.include_router(models.router, prefix="/api/v1")
+    app.include_router(batch.router, prefix="/api/v1")
+    app.include_router(images.router)
     
     @app.get("/")
     async def root():

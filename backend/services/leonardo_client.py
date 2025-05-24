@@ -198,3 +198,89 @@ class LeonardoClient:
         
         response = self.post("/generations-upscale", data=payload)
         return response["sdUpscaleJob"]["id"]
+    
+    async def generate_photoreal_images(self, photoreal_request) -> Any:
+        """
+        Generate images using Leonardo PhotoReal.
+        
+        Args:
+            photoreal_request: PhotoReal generation request
+            
+        Returns:
+            Generation result with images and metadata
+        """
+        # Build payload for PhotoReal
+        payload = {
+            "height": photoreal_request.height,
+            "width": photoreal_request.width,
+            "prompt": photoreal_request.prompt,
+            "num_images": photoreal_request.num_outputs,
+            "alchemy": True,  # PhotoReal requires alchemy
+            "photoReal": True,
+            "photoRealVersion": photoreal_request.photoreal_version
+        }
+        
+        # Add negative prompt if provided
+        if photoreal_request.negative_prompt:
+            payload["negative_prompt"] = photoreal_request.negative_prompt
+        
+        # Version-specific parameters
+        if photoreal_request.photoreal_version == "v1":
+            # v1 specific parameters
+            if photoreal_request.photoreal_strength is not None:
+                payload["photoRealStrength"] = photoreal_request.photoreal_strength
+            
+            # v1 uses presetStyle instead of styleUUID
+            payload["presetStyle"] = photoreal_request.style
+            
+        else:  # v2
+            # v2 requires modelId
+            payload["modelId"] = photoreal_request.model_id
+            
+            # v2 uses presetStyle 
+            payload["presetStyle"] = photoreal_request.style
+        
+        # Add enhance prompt if enabled
+        if photoreal_request.enhance_prompt:
+            payload["enhancePrompt"] = True
+        
+        logger.info(f"Creating PhotoReal {photoreal_request.photoreal_version} generation...")
+        logger.debug(f"Payload: {payload}")
+        
+        # Create generation
+        generation_id = self.create_generation(payload)
+        
+        # Poll until complete
+        generation_data = self.poll_generation(generation_id)
+        
+        # Extract image URLs
+        image_urls = []
+        for img_data in generation_data.get("generated_images", []):
+            if img_data.get("url"):
+                image_urls.append(img_data["url"])
+        
+        # Calculate rough cost estimate for PhotoReal
+        base_cost = 0.025 if photoreal_request.photoreal_version == "v2" else 0.02  # v2 costs slightly more
+        pixel_multiplier = (photoreal_request.width * photoreal_request.height) / (1024 * 1024)
+        cost_estimate = base_cost * photoreal_request.num_outputs * pixel_multiplier
+        
+        # Return result in expected format
+        class PhotoRealResult:
+            def __init__(self, generation_id, image_urls, metadata, cost_estimate):
+                self.generation_id = generation_id
+                self.status = "complete"
+                self.image_urls = image_urls
+                self.metadata = metadata
+                self.cost_estimate = cost_estimate
+        
+        return PhotoRealResult(
+            generation_id=generation_id,
+            image_urls=image_urls,
+            metadata={
+                "photoreal_version": photoreal_request.photoreal_version,
+                "model_id": photoreal_request.model_id,
+                "style": photoreal_request.style,
+                "parameters": payload
+            },
+            cost_estimate=round(cost_estimate, 4)
+        )

@@ -6,7 +6,8 @@ from fastapi import APIRouter
 import logging
 
 from ..api import ModelsResponse, ModelInfo
-from ...core.engine.leonardo.phoenix import PhoenixEngine
+from core.engine.leonardo.phoenix import PhoenixEngine
+from core.engine.leonardo.flux import FluxEngine
 
 
 logger = logging.getLogger(__name__)
@@ -30,8 +31,8 @@ async def list_models():
             vendor="leonardo",
             name="flux",
             type="image", 
-            available=False,
-            styles=None
+            available=True,
+            styles=FluxEngine.get_available_styles()
         ),
         ModelInfo(
             vendor="openai",

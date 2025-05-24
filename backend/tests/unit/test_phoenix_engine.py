@@ -4,11 +4,15 @@ Tests business logic with mocked external dependencies
 """
 
 import pytest
-from unittest.mock import Mock, AsyncMock, patch
+import sys
 from pathlib import Path
+from unittest.mock import Mock, AsyncMock, patch
 
-from backend.core.schemas import LeonardoPhoenixRequest, LeonardoEngineConfig
-from backend.core.engine.leonardo.phoenix import PhoenixEngine, PHOENIX_STYLES
+# Add the backend directory to the Python path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+from core.schemas import LeonardoPhoenixRequest, LeonardoEngineConfig
+from core.engine.leonardo.phoenix import PhoenixEngine, PHOENIX_STYLES
 
 
 @pytest.fixture

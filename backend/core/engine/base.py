@@ -86,7 +86,7 @@ class TextGenerationEngine(BaseEngine):
     
     def estimate_tokens(self, text: str) -> int:
         """Estimate token count. Simple approximation, override for accuracy."""
-        return len(text.split()) * 1.3  # Rough approximation
+        return int(len(text.split()) * 1.3)  # Rough approximation
 
 
 class EngineRegistry:

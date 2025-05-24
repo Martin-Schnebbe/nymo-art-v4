@@ -62,6 +62,66 @@ class LeonardoPhoenixRequest(ImageGenerationRequest):
         return self
 
 
+class LeonardoFluxRequest(ImageGenerationRequest):
+    """Request schema specific to Leonardo FLUX model."""
+    
+    model_type: Literal["flux_speed", "flux_precision"] = Field("flux_precision", description="FLUX model variant")
+    style: Optional[str] = Field(None, description="Art style name")
+    contrast: float = Field(3.5, description="Contrast level - valid values: [1.0, 1.3, 1.8, 2.5, 3, 3.5, 4, 4.5]")
+    enhance_prompt: bool = Field(False, description="Enable prompt enhancement")
+    enhance_prompt_instruction: Optional[str] = Field(None, description="Custom instruction for prompt enhancement")
+    ultra: bool = Field(False, description="Enable Ultra generation mode")
+    seed: Optional[int] = Field(None, ge=0, le=2147483638, description="Seed for reproducible generation")
+    
+    @field_validator('contrast')
+    @classmethod
+    def validate_contrast(cls, v, values=None):
+        """Validate contrast values according to Leonardo API."""
+        valid_values = [1.0, 1.3, 1.8, 2.5, 3.0, 3.5, 4.0, 4.5]
+        if v not in valid_values:
+            raise ValueError(f"Contrast must be one of {valid_values}, got {v}")
+        return v
+    
+    @model_validator(mode='after')
+    def validate_enhance_prompt(self):
+        """If enhance_prompt is true, ensure instruction is provided when needed."""
+        if self.enhance_prompt and self.enhance_prompt_instruction:
+            # If instruction is provided, it should be reasonable length
+            if len(self.enhance_prompt_instruction.strip()) < 3:
+                raise ValueError("Enhancement instruction must be at least 3 characters long")
+        return self
+
+
+class LeonardoPhotoRealRequest(ImageGenerationRequest):
+    """Request schema specific to Leonardo PhotoReal model."""
+    
+    photoreal_version: Literal["v1", "v2"] = Field("v2", description="PhotoReal version - v1 or v2")
+    model_id: Optional[str] = Field(None, description="Model ID for PhotoReal v2 (required for v2)")
+    style: str = Field("CINEMATIC", description="PhotoReal style")
+    contrast: float = Field(3.5, description="Contrast level")
+    photoreal_strength: Optional[float] = Field(None, ge=0.1, le=1.0, description="PhotoReal strength (v1 only)")
+    enhance_prompt: bool = Field(False, description="Enable prompt enhancement")
+    
+    @field_validator('contrast')
+    @classmethod
+    def validate_contrast(cls, v, values=None):
+        """Validate contrast values according to Leonardo API."""
+        if not 1.0 <= v <= 4.5:
+            raise ValueError(f"Contrast must be between 1.0 and 4.5, got {v}")
+        return v
+    
+    @model_validator(mode='after')
+    def validate_photoreal_version(self):
+        """Validate PhotoReal version-specific parameters."""
+        if self.photoreal_version == "v2" and not self.model_id:
+            raise ValueError("PhotoReal v2 requires a model_id")
+        
+        if self.photoreal_version == "v2" and self.photoreal_strength is not None:
+            raise ValueError("photoreal_strength is only supported in PhotoReal v1")
+        
+        return self
+
+
 class ChatCompletionRequest(GenerationRequest):
     """Request schema for chat completion engines."""
     

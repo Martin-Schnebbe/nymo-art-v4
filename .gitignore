@@ -37,16 +37,23 @@ env/
 *.swp
 *.swo
 
-# Generated Images
-generated_images/*.png
-generated_images/*.jpg
-generated_images/*.jpeg
+# Generated images and temporary files
+backend/generated_images/*.png
+backend/generated_images/*.jpg
+backend/generated_images/*.jpeg
+generated_images/
+*.png
+*.jpg
+*.jpeg
 
-# Test Results
-test_results*.json
-*test_output*
+# Test and temporary files
+test_*.py
+*_test.py
+*_backup.*
+*_old.*
+*.tmp
 
-# Logs
+# Development logs
 *.log
 logs/
 

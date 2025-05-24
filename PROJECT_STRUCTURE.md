@@ -1,102 +1,145 @@
-# Nymo Art v4 - Clean Project Structure 🎯
+# Nymo Art v4 - Projekt Struktur
 
-## 📁 Project Overview
-Clean, well-organized Leonardo AI image generation backend with working API integration.
+## Übersicht
+Eine saubere, modulare Anwendung für KI-Bildgenerierung mit Leonardo AI APIs.
+
+## Projektstruktur
 
 ```
-nymo art v4/
-├── 📋 Configuration
-│   ├── .env                           # API keys and environment variables
-│   ├── .env.example                   # Template for environment setup
-│   ├── .gitignore                     # Git ignore patterns
-│   └── requirements.txt               # Python dependencies
-│
-├── 🚀 Main Application
-│   └── backend/                       # Core backend application
-│       ├── app/                       # FastAPI application
-│       │   ├── main.py               # FastAPI app entry point
-│       │   ├── api/                  # API layer
-│       │   └── routes/               # API route definitions
-│       │       ├── generations.py   # Image generation endpoints
-│       │       └── models.py         # Model information endpoints
-│       │
-│       ├── core/                     # Core business logic
-│       │   ├── schemas.py           # Pydantic data models
-│       │   ├── phoenix_model.py     # Phoenix model configuration
-│       │   └── engine/              # AI engine implementations
-│       │       ├── base.py          # Base engine interface
-│       │       └── leonardo/        # Leonardo AI integration
-│       │           └── phoenix.py   # Phoenix model engine
-│       │
-│       ├── services/                # External service clients
-│       │   └── leonardo_client.py   # Leonardo API client
-│       │
-│       └── tests/                   # Test suites
-│           ├── unit/                # Unit tests
-│           └── integration/         # Integration tests
-│
-├── 🧪 Testing & Validation
-│   ├── generate_test_images.py       # Working test image generator
-│   └── test_results_leonardo_parameters.json  # Successful test results (325/325 passed)
-│
-├── 🖼️ Generated Content
-│   └── generated_images/             # Test images and outputs
-│
-└── 📚 Documentation
-    ├── README.md                     # Project documentation
-    ├── ITERATION_COMPLETE.md         # Previous iteration summary
-    └── PROJECT_STRUCTURE.md          # This file
+nymo-art-v4/
+├── README.md                    # Hauptdokumentation
+├── requirements.txt             # Python-Abhängigkeiten
+├── .env.example                 # Umgebungsvariablen-Vorlage
+├── .gitignore                   # Git-Ignore-Regeln
+├── 
+├── scripts/                     # CLI Tools und Utilities
+│   ├── generate_test_images.py  # Test-Bildgenerierung Script
+│   ├── batch_process.py         # Batch-Verarbeitung CLI Tool
+│   └── example_prompts_batch.csv # Beispiel CSV für Batch-Processing
+├──
+├── backend/                     # Python Backend
+│   ├── pyproject.toml          # Python Projekt-Konfiguration
+│   ├── app/                    # FastAPI Anwendung
+│   │   ├── main.py            # FastAPI App Entry Point
+│   │   ├── api/               # API Router
+│   │   └── routes/            # API Endpunkte
+│   │       ├── generations.py # Bildgenerierung Endpunkte
+│   │       ├── models.py      # Modell-Info Endpunkte
+│   │       ├── images.py      # Bild-Download Endpunkte
+│   │       └── batch.py       # Batch-Processing Endpunkte
+│   ├── core/                  # Kernlogik
+│   │   ├── schemas.py         # Pydantic Datenmodelle
+│   │   ├── batch_processor.py # Batch-Verarbeitung
+│   │   └── engine/            # AI Engine Implementierungen
+│   │       ├── base.py        # Basis Engine Interface
+│   │       └── leonardo/      # Leonardo AI Engines
+│   │           ├── phoenix.py    # Phoenix Model Engine
+│   │           ├── flux.py       # FLUX Model Engine
+│   │           └── photoreal.py  # PhotoReal Engine
+│   ├── services/              # Externe Services
+│   │   └── leonardo_client.py # Leonardo API Client
+│   ├── tests/                 # Tests
+│   │   ├── unit/             # Unit Tests
+│   │   └── integration/      # Integration Tests
+│   └── generated_images/      # Generierte Bilder (Output)
+└──
+└── frontend/                   # React Frontend
+    ├── package.json           # NPM Abhängigkeiten
+    ├── vite.config.ts         # Vite Konfiguration
+    ├── tsconfig.json          # TypeScript Konfiguration
+    ├── tailwind.config.js     # Tailwind CSS Konfiguration
+    ├── index.html             # HTML Entry Point
+    ├── test-api.html          # API Test Interface
+    ├── public/                # Statische Assets
+    └── src/                   # React Quellcode
+        ├── App.tsx            # Haupt-App Komponente
+        ├── main.tsx           # React Entry Point
+        ├── theme.ts           # Material-UI Theme
+        ├── components/        # Wiederverwendbare Komponenten
+        │   ├── Layout.tsx           # App Layout mit Navigation
+        │   ├── ModelSelector.tsx    # AI Model Auswahl
+        │   ├── PromptInput.tsx      # Prompt Eingabefeld
+        │   ├── DimensionsSelector.tsx # Bildgrößen-Auswahl
+        │   ├── PhoenixSettings.tsx   # Phoenix Model Einstellungen
+        │   ├── FluxSettings.tsx      # FLUX Model Einstellungen
+        │   ├── PhotoRealSettings.tsx # PhotoReal Einstellungen
+        │   └── ImageGallery.tsx     # Bild-Galerie Komponente
+        ├── hooks/             # Custom React Hooks
+        │   └── useFormData.ts       # Form State Management
+        ├── pages/             # Seiten Komponenten
+        │   ├── Generate.tsx         # Bildgenerierung Seite
+        │   └── BatchProcess.tsx     # Batch-Verarbeitung Seite
+        └── services/          # API Client Services
+            ├── phoenixClient.ts     # Phoenix API Client
+            ├── fluxClient.ts        # FLUX API Client
+            ├── photorealClient.ts   # PhotoReal API Client
+            └── batchClient.ts       # Batch API Client
 ```
 
-## 🎯 Key Features
+## Architektur
 
-### ✅ Working Components
-- **Leonardo AI Integration**: Fully functional Phoenix model API
-- **Parameter Validation**: 100% success rate (325/325 combinations tested)
-- **Schema Validation**: Pydantic models with proper validation
-- **Cost Estimation**: Accurate token cost calculation
-- **Image Generation**: Multi-image generation with various styles
+### Backend (Python/FastAPI)
+- **Modulare Engine-Architektur**: Jedes AI-Modell hat seine eigene Engine-Implementierung
+- **Typsichere APIs**: Pydantic Schemas für Validierung und Dokumentation
+- **Async/Await**: Vollständig asynchrone Verarbeitung
+- **Testbare Struktur**: Unit und Integration Tests
 
-### 🗑️ Cleaned Up
-- **Removed 12 redundant files**: Multiple CLI interfaces and duplicate tests
-- **Consolidated API structure**: Single clean backend implementation
-- **Removed legacy code**: Old `my_api/` directory eliminated
+### Frontend (React/TypeScript)
+- **Komponentenbasiert**: Kleine, wiederverwendbare React-Komponenten
+- **Custom Hooks**: Saubere Trennung von UI und Business Logic
+- **Material-UI Design**: Konsistente, moderne Benutzeroberfläche
+- **TypeScript**: Typsicherheit im gesamten Frontend
 
-## 🚀 Quick Start
+## Verwendete Technologien
 
-1. **Setup Environment**:
-   ```bash
-   cp .env.example .env
-   # Add your LEONARDO_API_KEY to .env
-   ```
+### Backend
+- **FastAPI**: Moderne Python Web Framework
+- **Pydantic**: Datenvalidierung und Settings
+- **aiohttp**: Asynchrone HTTP-Clients
+- **pytest**: Testing Framework
 
-2. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Frontend
+- **React 18**: UI Framework
+- **TypeScript**: Typsichere JavaScript
+- **Material-UI (MUI)**: UI Komponenten-Bibliothek
+- **Vite**: Build Tool und Dev Server
 
-3. **Test Image Generation**:
-   ```bash
-   python generate_test_images.py
-   ```
+### AI APIs
+- **Leonardo AI**: Phoenix, FLUX und PhotoReal Models
+- **Unterstützte Features**: 
+  - Verschiedene Styles und Dimensionen
+  - Batch-Verarbeitung
+  - Bild-Download und -Verwaltung
 
-4. **Start Backend Server**:
+## Getting Started
+
+1. **Backend Setup**:
    ```bash
    cd backend
+   pip install -r ../requirements.txt
+   cp ../.env.example ../.env  # Und API-Keys einfügen
    python -m uvicorn app.main:app --reload
    ```
 
-## 📊 Test Results
-- **API Integration**: ✅ 100% working
-- **Parameter Combinations**: ✅ 325/325 passed
-- **Style Support**: ✅ 25 Phoenix styles
-- **Contrast Levels**: ✅ 8 different levels tested
-- **Alchemy Mode**: ✅ Both enabled/disabled working
+2. **Frontend Setup**:
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
 
-## 🔧 API Endpoints
-- `POST /generate` - Generate images with Phoenix model
-- `GET /models` - List available models and styles
-- `GET /health` - Health check endpoint
+3. **Testing**:
+   ```bash
+   # Backend Tests
+   cd backend && python -m pytest tests/
 
----
-*Last updated: May 24, 2025 - Project cleanup complete*
+   # Frontend Build Test
+   cd frontend && npm run build
+   ```
+
+## Status
+✅ **Aufgeräumt und Funktionsfähig** (Mai 2025)
+- Alle redundanten und leeren Dateien entfernt
+- Modulare, wartbare Codebase
+- Vollständig refaktoriert von monolithischer zu modularer Architektur
+- Erfolgreiche Build-Tests für Frontend und Backend

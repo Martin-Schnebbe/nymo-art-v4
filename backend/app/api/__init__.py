@@ -2,7 +2,7 @@
 FastAPI Request/Response schemas and exception handlers
 """
 
-from typing import Optional, List, Any, Dict
+from typing import Optional, List, Any, Dict, Literal
 from fastapi import HTTPException, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
@@ -27,6 +27,39 @@ class GenerateImageRequest(BaseModel):
     negative_prompt: Optional[str] = Field(None, description="Negative prompt")
     upscale: bool = Field(False, description="Enable upscaling")
     upscale_strength: float = Field(0.35, ge=0.0, le=1.0, description="Upscale strength")
+
+
+class GenerateFluxImageRequest(BaseModel):
+    """API request schema for FLUX image generation."""
+    
+    prompt: str = Field(..., min_length=1, max_length=1000, description="Text prompt")
+    num_images: int = Field(1, ge=1, le=10, description="Number of images")
+    width: int = Field(1024, ge=512, le=2048, description="Image width") 
+    height: int = Field(1024, ge=512, le=2048, description="Image height")
+    model_type: Literal["flux_speed", "flux_precision"] = Field("flux_precision", description="FLUX model type: flux_speed or flux_precision")
+    style: Optional[str] = Field(None, description="Art style")
+    contrast: float = Field(3.5, ge=1.0, le=4.5, description="Contrast level")
+    enhance_prompt: bool = Field(False, description="Enable prompt enhancement")
+    enhance_prompt_instruction: Optional[str] = Field(None, description="Custom enhancement instruction")
+    negative_prompt: Optional[str] = Field(None, description="Negative prompt")
+    ultra: bool = Field(False, description="Enable Ultra generation mode")
+    seed: Optional[int] = Field(None, ge=0, le=2147483638, description="Seed for reproducible generation")
+
+
+class GeneratePhotoRealImageRequest(BaseModel):
+    """API request schema for PhotoReal image generation."""
+    
+    prompt: str = Field(..., min_length=1, max_length=1000, description="Text prompt")
+    num_images: int = Field(1, ge=1, le=10, description="Number of images (max 10 for PhotoReal)")
+    width: int = Field(1024, description="Image width (512, 768, 1024, 1536)")
+    height: int = Field(1024, description="Image height (512, 768, 1024, 1536)")
+    photoreal_version: Literal["v1", "v2"] = Field("v2", description="PhotoReal version: v1 or v2")
+    model_id: Optional[str] = Field(None, description="Model ID for PhotoReal v2 (Kino XL, Diffusion XL, Vision XL)")
+    style: str = Field("CINEMATIC", description="PhotoReal style")
+    contrast: float = Field(3.5, ge=1.0, le=4.5, description="Contrast level")
+    photoreal_strength: Optional[float] = Field(None, description="PhotoReal strength (v1 only) - must be 0.5")
+    enhance_prompt: bool = Field(False, description="Enable prompt enhancement")
+    negative_prompt: Optional[str] = Field(None, description="Negative prompt")
 
 
 class ImageGenerationResponse(BaseModel):

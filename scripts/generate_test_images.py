@@ -11,11 +11,11 @@ from pathlib import Path
 from datetime import datetime
 
 # Add backend to path
-backend_path = Path(__file__).parent / "backend"
+backend_path = Path(__file__).parent.parent / "backend"
 sys.path.insert(0, str(backend_path))
 
-from core.engine.leonardo.phoenix import LeonardoPhoenixEngine
-from core.schemas import LeonardoPhoenixRequest
+from core.engine.leonardo.phoenix import PhoenixEngine
+from core.schemas import LeonardoPhoenixRequest, LeonardoEngineConfig
 
 
 async def generate_test_images():
@@ -32,8 +32,14 @@ async def generate_test_images():
     print("🎨 Starting Leonardo Phoenix image generation test...")
     print(f"📅 Timestamp: {datetime.now().isoformat()}")
     
-    # Initialize engine
-    engine = LeonardoPhoenixEngine()
+    # Initialize engine with config
+    config = LeonardoEngineConfig(
+        name="phoenix",
+        vendor="leonardo",
+        enabled=True,
+        api_key=api_key
+    )
+    engine = PhoenixEngine(config)
     
     # Test configurations
     test_configs = [
@@ -44,7 +50,7 @@ async def generate_test_images():
                 num_outputs=1,
                 width=1024,
                 height=1024,
-                style="CINEMATIC",
+                style="Cinematic",
                 contrast=3.5,
                 alchemy=True,
                 enhance_prompt=False
@@ -57,7 +63,7 @@ async def generate_test_images():
                 num_outputs=1,
                 width=1344,
                 height=768,
-                style="PHOTOREALISTIC",
+                style="Pro color photography",
                 contrast=4.0,
                 alchemy=True,
                 enhance_prompt=True
@@ -70,7 +76,7 @@ async def generate_test_images():
                 num_outputs=2,
                 width=832,
                 height=1216,
-                style="FANTASY_ART",
+                style="Illustration",
                 contrast=2.5,
                 alchemy=True,
                 enhance_prompt=False

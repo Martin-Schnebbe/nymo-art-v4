@@ -1,0 +1,5534 @@
+{
+  "test_type": "leonardo_phoenix_parameters",
+  "timestamp": "36603.577496041",
+  "total_tests": 325,
+  "passed_tests": 325,
+  "failed_tests": 0,
+  "results": [
+    {
+      "style": "3D Render",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "3D Render",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Bokeh",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Cinematic Concept",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Creative",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Dynamic",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Fashion",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Pop Art",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Graphic Design Vector",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "HDR",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Illustration",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Macro",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Minimalist",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Moody",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "None",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro B&W photography",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro color photography",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Pro film photography",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Portrait Fashion",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Ray Traced",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (B&W)",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Sketch (Color)",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Stock Photo",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 1.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 1.3,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 1.8,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 2.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 2.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 3.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 3.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 3.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 3.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 4.0,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 4.0,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 4.5,
+      "alchemy": true,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    },
+    {
+      "style": "Vibrant",
+      "contrast": 4.5,
+      "alchemy": false,
+      "status": "PASS",
+      "payload_keys": [
+        "modelId",
+        "prompt",
+        "num_images",
+        "width",
+        "height",
+        "contrast",
+        "alchemy",
+        "enhancePrompt",
+        "styleUUID"
+      ]
+    }
+  ]
+}
