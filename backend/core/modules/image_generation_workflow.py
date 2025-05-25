@@ -11,6 +11,7 @@ from datetime import datetime
 from ..schemas import GenerationRequest, GenerationResult, LeonardoEngineConfig
 from ..engine.base import ImageGenerationEngine
 from .file_manager import EnhancedFileManager
+from ..naming import GenerationNaming, URLGeneration, NamingConfig
 
 
 logger = logging.getLogger(__name__)
@@ -71,7 +72,7 @@ class ImageGenerationWorkflow:
                 "generation_id": result.metadata.generation_id,
                 "status": "complete",
                 "num_images": save_result['num_images'],
-                "image_urls": [self._path_to_url(path) for path in save_result['image_paths']],
+                "image_urls": [URLGeneration.path_to_url(path, self.output_base_dir) for path in save_result['image_paths']],
                 "local_paths": save_result['image_paths'],
                 "metadata_path": save_result['metadata_path'],
                 "metadata": result.metadata.parameters,
@@ -93,7 +94,7 @@ class ImageGenerationWorkflow:
                 "generation_id": result.metadata.generation_id,
                 "status": "complete",
                 "num_images": len(result.outputs),
-                "image_urls": [self._path_to_url(path) for path in image_paths],
+                "image_urls": [URLGeneration.path_to_url(path, self.output_base_dir) for path in image_paths],
                 "local_paths": image_paths,
                 "metadata": result.metadata.parameters,
                 "cost_estimate": result.metadata.cost_estimate
@@ -128,11 +129,6 @@ class ImageGenerationWorkflow:
         logger.info(f"Saved {len(image_paths)} images to {output_dir}")
         return image_paths
     
-    def _path_to_url(self, file_path: str) -> str:
-        """Convert file path to URL for API responses."""
-        # Always return /images/{filename} for frontend compatibility
-        filename = Path(file_path).name
-        return f"/images/{filename}"
     
     def estimate_cost(self, request: GenerationRequest) -> float:
         """Estimate generation cost."""
@@ -146,7 +142,7 @@ class ImageGenerationWorkflow:
 class BatchImageGenerationWorkflow:
     """Specialized workflow for batch image generation."""
     
-    def __init__(self, engine: ImageGenerationEngine, batch_id: str, output_base_dir: str = "batch_output", use_enhanced_naming: bool = True):
+    def __init__(self, engine: ImageGenerationEngine, batch_id: str, output_base_dir: str = "generated_images", use_enhanced_naming: bool = True):
         self.engine = engine
         self.batch_id = batch_id
         self.output_base_dir = Path(output_base_dir)
@@ -159,8 +155,9 @@ class BatchImageGenerationWorkflow:
             self.batch_metadata = None
             self.batch_metadata_path = None
         else:
-            # Legacy approach
-            self.batch_dir = self.output_base_dir / f"batch_{batch_id}"
+            # Legacy approach - keep batch_output for legacy compatibility
+            legacy_output = Path("batch_output") / f"batch_{batch_id}"
+            self.batch_dir = legacy_output
             self.batch_dir.mkdir(parents=True, exist_ok=True)
     
     def initialize_batch(self, total_jobs: int, engine_type: str, description: Optional[str] = None) -> Dict[str, Any]:
@@ -334,11 +331,14 @@ class ImageGenerationRequestFactory:
     @staticmethod
     def from_batch_params(prompt: str, params: Dict[str, Any], engine_type: str) -> GenerationRequest:
         """Create engine request from batch parameters."""
+        # Support both 'num_outputs' (backend) and 'num_images' (frontend) parameter names
+        num_outputs = params.get('num_outputs') or params.get('num_images', 1)
+        
         if 'phoenix' in engine_type.lower():
             from ..schemas import LeonardoPhoenixRequest
             return LeonardoPhoenixRequest(
                 prompt=prompt,
-                num_outputs=params.get('num_outputs', 1),
+                num_outputs=num_outputs,
                 width=params.get('width', 1024),
                 height=params.get('height', 1024),
                 style=params.get('style'),
@@ -353,7 +353,7 @@ class ImageGenerationRequestFactory:
             from ..schemas import LeonardoFluxRequest
             return LeonardoFluxRequest(
                 prompt=prompt,
-                num_outputs=params.get('num_outputs', 1),
+                num_outputs=num_outputs,
                 width=params.get('width', 1024),
                 height=params.get('height', 1024),
                 model_type=params.get('model_type', 'flux_precision'),
@@ -369,7 +369,7 @@ class ImageGenerationRequestFactory:
             from ..schemas import LeonardoPhotoRealRequest
             return LeonardoPhotoRealRequest(
                 prompt=prompt,
-                num_outputs=params.get('num_outputs', 1),
+                num_outputs=num_outputs,
                 width=params.get('width', 1024),
                 height=params.get('height', 1024),
                 photoreal_version=params.get('photoreal_version', 'v2'),

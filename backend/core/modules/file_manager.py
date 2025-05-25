@@ -28,15 +28,14 @@ class FileNamingManager:
         return sanitized
     
     @staticmethod
-    def generate_normal_filename(
+    def generate_generation_folder_name(
         request: GenerationRequest,
         engine_type: str,
-        image_index: int = 1,
         timestamp: Optional[datetime] = None
     ) -> str:
         """
-        Generate filename for normal generation.
-        Format: 2025-05-25_14-30-15_phoenix_dynamic_a-beautiful-sunset_001.png
+        Generate folder name for single generation.
+        Format: 2025-05-25_14-30-15_phoenix_dynamic_a-beautiful-sunset
         """
         if timestamp is None:
             timestamp = datetime.now()
@@ -60,11 +59,46 @@ class FileNamingManager:
         # Sanitize prompt
         prompt_part = FileNamingManager.sanitize_prompt(request.prompt, 40)
         
+        # Combine parts
+        parts = [timestamp_str, engine_name]
+        if style_part:
+            parts.append(style_part)
+        parts.append(prompt_part)
+        
+        return "_".join(parts)
+
+    @staticmethod
+    def generate_normal_filename(
+        request: GenerationRequest,
+        engine_type: str,
+        image_index: int = 1,
+        timestamp: Optional[datetime] = None
+    ) -> str:
+        """
+        Generate filename for normal generation (inside generation folder).
+        Format: phoenix_dynamic_a-beautiful-sunset_001.png
+        """
+        # Get engine type (e.g., "phoenix", "flux", "photoreal")
+        engine_name = engine_type.lower().split('_')[0]
+        
+        # Get style or model type
+        style_part = ""
+        style_attr = getattr(request, 'style', None)
+        model_type_attr = getattr(request, 'model_type', None)
+        
+        if style_attr:
+            style_part = FileNamingManager.sanitize_prompt(style_attr, 15)
+        elif model_type_attr:
+            style_part = FileNamingManager.sanitize_prompt(model_type_attr, 15)
+        
+        # Sanitize prompt
+        prompt_part = FileNamingManager.sanitize_prompt(request.prompt, 40)
+        
         # Format image index
         index_str = f"{image_index:03d}"
         
         # Combine parts
-        parts = [timestamp_str, engine_name]
+        parts = [engine_name]
         if style_part:
             parts.append(style_part)
         parts.extend([prompt_part, index_str])
@@ -315,15 +349,20 @@ class EnhancedFileManager:
         image_data_list: List[bytes],
         output_subdir: Optional[str] = None
     ) -> Dict[str, Any]:
-        """Save normal generation with enhanced naming and metadata."""
+        """Save normal generation with enhanced naming and metadata in its own folder."""
         timestamp = datetime.now()
+        
+        # Create generation-specific folder
+        generation_folder_name = self.naming.generate_generation_folder_name(
+            request, engine_type, timestamp
+        )
         
         # Determine output directory
         if output_subdir:
-            output_dir = self.base_dir / output_subdir
+            generation_dir = self.base_dir / output_subdir / generation_folder_name
         else:
-            output_dir = self.base_dir
-        output_dir.mkdir(parents=True, exist_ok=True)
+            generation_dir = self.base_dir / generation_folder_name
+        generation_dir.mkdir(parents=True, exist_ok=True)
         
         # Save images with enhanced names
         image_paths = []
@@ -331,7 +370,7 @@ class EnhancedFileManager:
             filename = self.naming.generate_normal_filename(
                 request, engine_type, i + 1, timestamp
             )
-            filepath = output_dir / filename
+            filepath = generation_dir / filename
             filepath.write_bytes(image_data)
             image_paths.append(str(filepath))
         
@@ -342,7 +381,7 @@ class EnhancedFileManager:
         
         # Save metadata file
         metadata_filename = f"metadata_{timestamp.strftime('%Y-%m-%d_%H-%M-%S')}.json"
-        metadata_filepath = output_dir / metadata_filename
+        metadata_filepath = generation_dir / metadata_filename
         self.metadata.save_metadata(metadata, metadata_filepath)
         
         return {
@@ -352,6 +391,8 @@ class EnhancedFileManager:
             "image_paths": image_paths,
             "metadata_path": str(metadata_filepath),
             "timestamp": timestamp.isoformat(),
+            "generation_folder": str(generation_dir),
+            "folder_name": generation_folder_name,
             "metadata": metadata
         }
     

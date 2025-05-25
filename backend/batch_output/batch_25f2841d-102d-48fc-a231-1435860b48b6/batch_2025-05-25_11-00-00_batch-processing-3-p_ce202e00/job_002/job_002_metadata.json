@@ -1,0 +1,46 @@
+{
+  "generation_info": {
+    "generation_id": "2d369683-0d3d-412e-ac86-c244e5520576",
+    "timestamp": "2025-05-25T11:00:25.380268",
+    "engine_type": "phoenix",
+    "engine_parameters": {
+      "width": 1024,
+      "height": 1024,
+      "num_images": 1,
+      "contrast": 3.5,
+      "alchemy": true,
+      "enhance_prompt": false,
+      "ultra": false,
+      "upscale": false,
+      "upscale_strength": 0.35,
+      "style": "Dynamic",
+      "prompt": "Futuristic cityscape at night with neon lights and flying cars",
+      "negative_prompt": ""
+    },
+    "cost_estimate": 0.03,
+    "processing_time": null
+  },
+  "request_parameters": {
+    "prompt": "Futuristic cityscape at night with neon lights and flying cars",
+    "num_outputs": 1,
+    "width": 1024,
+    "height": 1024,
+    "style": "Dynamic",
+    "contrast": 3.5,
+    "negative_prompt": "",
+    "alchemy": true,
+    "enhance_prompt": false,
+    "upscale": false,
+    "upscale_strength": 0.35,
+    "ultra": false
+  },
+  "images": [
+    {
+      "index": 1,
+      "filename": "job_002_phoenix_dynamic_futuristic-cityscape-at-night_001.png",
+      "filepath": "batch_output/batch_25f2841d-102d-48fc-a231-1435860b48b6/batch_2025-05-25_11-00-00_batch-processing-3-p_ce202e00/job_002/job_002_phoenix_dynamic_futuristic-cityscape-at-night_001.png",
+      "size_bytes": 1424564
+    }
+  ],
+  "metadata_version": "1.0"
+}

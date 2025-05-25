@@ -1,0 +1,58 @@
+{
+  "generation_info": {
+    "generation_id": "c06963de-ff89-4cf7-973c-499cc7953d63",
+    "timestamp": "2025-05-25T11:26:14.905584",
+    "engine_type": "phoenix",
+    "engine_parameters": {
+      "width": 1024,
+      "height": 1024,
+      "num_images": 3,
+      "contrast": 3.5,
+      "alchemy": true,
+      "enhance_prompt": false,
+      "ultra": false,
+      "upscale": false,
+      "upscale_strength": 0.5,
+      "style": "Cinematic",
+      "prompt": "A beautiful sunset over mountains",
+      "negative_prompt": ""
+    },
+    "cost_estimate": 0.09,
+    "processing_time": null
+  },
+  "request_parameters": {
+    "prompt": "A beautiful sunset over mountains",
+    "num_outputs": 3,
+    "width": 1024,
+    "height": 1024,
+    "style": "Cinematic",
+    "contrast": 3.5,
+    "negative_prompt": "",
+    "alchemy": true,
+    "enhance_prompt": false,
+    "upscale": false,
+    "upscale_strength": 0.5,
+    "ultra": false
+  },
+  "images": [
+    {
+      "index": 1,
+      "filename": "job_001_phoenix_cinematic_a-beautiful-sunset-over-mounta_001.png",
+      "filepath": "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_001/job_001_phoenix_cinematic_a-beautiful-sunset-over-mounta_001.png",
+      "size_bytes": 1276992
+    },
+    {
+      "index": 2,
+      "filename": "job_001_phoenix_cinematic_a-beautiful-sunset-over-mounta_002.png",
+      "filepath": "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_001/job_001_phoenix_cinematic_a-beautiful-sunset-over-mounta_002.png",
+      "size_bytes": 1168251
+    },
+    {
+      "index": 3,
+      "filename": "job_001_phoenix_cinematic_a-beautiful-sunset-over-mounta_003.png",
+      "filepath": "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_001/job_001_phoenix_cinematic_a-beautiful-sunset-over-mounta_003.png",
+      "size_bytes": 1053662
+    }
+  ],
+  "metadata_version": "1.0"
+}

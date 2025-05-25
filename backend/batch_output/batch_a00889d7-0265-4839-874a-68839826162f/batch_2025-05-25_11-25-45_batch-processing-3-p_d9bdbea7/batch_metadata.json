@@ -1,0 +1,71 @@
+{
+  "batch_info": {
+    "batch_id": "d9bdbea7-14f9-4909-9dd3-c7626e713c40",
+    "timestamp": "2025-05-25T11:25:45.591431",
+    "description": "Batch processing 3 prompts",
+    "total_jobs": 3,
+    "engine_type": "phoenix",
+    "status": "completed",
+    "completed_timestamp": "2025-05-25T11:27:08.834151"
+  },
+  "jobs": {
+    "job_001": {
+      "job_id": "job_001",
+      "status": "completed",
+      "generation_id": "c06963de-ff89-4cf7-973c-499cc7953d63",
+      "image_paths": [
+        "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_001/job_001_phoenix_cinematic_a-beautiful-sunset-over-mounta_001.png",
+        "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_001/job_001_phoenix_cinematic_a-beautiful-sunset-over-mounta_002.png",
+        "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_001/job_001_phoenix_cinematic_a-beautiful-sunset-over-mounta_003.png"
+      ],
+      "num_images": 3,
+      "cost_estimate": 0.09,
+      "metadata_path": "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_001/job_001_metadata.json",
+      "timestamp": "2025-05-25T11:26:14.907209",
+      "start_time": "2025-05-25T11:25:45.592074",
+      "end_time": "2025-05-25T11:26:14.907945",
+      "processing_time": 29.315871
+    },
+    "job_002": {
+      "job_id": "job_002",
+      "status": "completed",
+      "generation_id": "32b9d9b7-c550-4a5d-a860-60b1ba1f694f",
+      "image_paths": [
+        "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_002/job_002_phoenix_cinematic_a-cute-cat-sleeping-on-a-pillo_001.png",
+        "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_002/job_002_phoenix_cinematic_a-cute-cat-sleeping-on-a-pillo_002.png",
+        "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_002/job_002_phoenix_cinematic_a-cute-cat-sleeping-on-a-pillo_003.png"
+      ],
+      "num_images": 3,
+      "cost_estimate": 0.09,
+      "metadata_path": "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_002/job_002_metadata.json",
+      "timestamp": "2025-05-25T11:26:41.618291",
+      "start_time": "2025-05-25T11:26:14.908298",
+      "end_time": "2025-05-25T11:26:41.618954",
+      "processing_time": 26.710656
+    },
+    "job_003": {
+      "job_id": "job_003",
+      "status": "completed",
+      "generation_id": "6d579690-f1a0-4303-b70b-d925420f920f",
+      "image_paths": [
+        "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_003/job_003_phoenix_cinematic_a-modern-city-skyline-at-night_001.png",
+        "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_003/job_003_phoenix_cinematic_a-modern-city-skyline-at-night_002.png",
+        "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_003/job_003_phoenix_cinematic_a-modern-city-skyline-at-night_003.png"
+      ],
+      "num_images": 3,
+      "cost_estimate": 0.09,
+      "metadata_path": "batch_output/batch_a00889d7-0265-4839-874a-68839826162f/batch_2025-05-25_11-25-45_batch-processing-3-p_d9bdbea7/job_003/job_003_metadata.json",
+      "timestamp": "2025-05-25T11:27:07.831472",
+      "start_time": "2025-05-25T11:26:41.619319",
+      "end_time": "2025-05-25T11:27:07.831971",
+      "processing_time": 26.212652
+    }
+  },
+  "summary": {
+    "completed": 3,
+    "failed": 0,
+    "total_images": 9,
+    "total_cost": 0.27
+  },
+  "metadata_version": "1.0"
+}

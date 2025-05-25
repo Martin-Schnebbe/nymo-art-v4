@@ -1,0 +1,46 @@
+{
+  "generation_info": {
+    "generation_id": "507227fe-d681-4ee4-a9bd-3c27f45c856a",
+    "timestamp": "2025-05-25T11:00:35.442607",
+    "engine_type": "phoenix",
+    "engine_parameters": {
+      "width": 1024,
+      "height": 1024,
+      "num_images": 1,
+      "contrast": 3.5,
+      "alchemy": true,
+      "enhance_prompt": false,
+      "ultra": false,
+      "upscale": false,
+      "upscale_strength": 0.35,
+      "style": "Dynamic",
+      "prompt": "Portrait of an elegant woman with dramatic lighting in a studio setting",
+      "negative_prompt": ""
+    },
+    "cost_estimate": 0.03,
+    "processing_time": null
+  },
+  "request_parameters": {
+    "prompt": "Portrait of an elegant woman with dramatic lighting in a studio setting",
+    "num_outputs": 1,
+    "width": 1024,
+    "height": 1024,
+    "style": "Dynamic",
+    "contrast": 3.5,
+    "negative_prompt": "",
+    "alchemy": true,
+    "enhance_prompt": false,
+    "upscale": false,
+    "upscale_strength": 0.35,
+    "ultra": false
+  },
+  "images": [
+    {
+      "index": 1,
+      "filename": "job_003_phoenix_dynamic_portrait-of-an-elegant-woman-w_001.png",
+      "filepath": "batch_output/batch_25f2841d-102d-48fc-a231-1435860b48b6/batch_2025-05-25_11-00-00_batch-processing-3-p_ce202e00/job_003/job_003_phoenix_dynamic_portrait-of-an-elegant-woman-w_001.png",
+      "size_bytes": 1079354
+    }
+  ],
+  "metadata_version": "1.0"
+}

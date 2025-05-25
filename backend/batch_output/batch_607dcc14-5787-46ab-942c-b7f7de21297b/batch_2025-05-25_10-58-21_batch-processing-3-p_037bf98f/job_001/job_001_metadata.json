@@ -1,0 +1,46 @@
+{
+  "generation_info": {
+    "generation_id": "f0774cb9-4ea7-40dd-81f0-daa422a30c46",
+    "timestamp": "2025-05-25T10:58:35.618535",
+    "engine_type": "phoenix",
+    "engine_parameters": {
+      "width": 512,
+      "height": 512,
+      "num_images": 1,
+      "contrast": 3.5,
+      "alchemy": true,
+      "enhance_prompt": false,
+      "ultra": false,
+      "upscale": false,
+      "upscale_strength": 0.35,
+      "style": "Dynamic",
+      "prompt": "A beautiful sunset over mountains with golden light reflecting on a peaceful lake",
+      "negative_prompt": ""
+    },
+    "cost_estimate": 0.0075,
+    "processing_time": null
+  },
+  "request_parameters": {
+    "prompt": "A beautiful sunset over mountains with golden light reflecting on a peaceful lake",
+    "num_outputs": 1,
+    "width": 512,
+    "height": 512,
+    "style": "Dynamic",
+    "contrast": 3.5,
+    "negative_prompt": "",
+    "alchemy": true,
+    "enhance_prompt": false,
+    "upscale": false,
+    "upscale_strength": 0.35,
+    "ultra": false
+  },
+  "images": [
+    {
+      "index": 1,
+      "filename": "job_001_phoenix_dynamic_a-beautiful-sunset-over-mounta_001.png",
+      "filepath": "batch_output/batch_607dcc14-5787-46ab-942c-b7f7de21297b/batch_2025-05-25_10-58-21_batch-processing-3-p_037bf98f/job_001/job_001_phoenix_dynamic_a-beautiful-sunset-over-mounta_001.png",
+      "size_bytes": 335191
+    }
+  ],
+  "metadata_version": "1.0"
+}

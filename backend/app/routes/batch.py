@@ -19,6 +19,7 @@ from core.engine.leonardo.phoenix import PhoenixEngine
 from core.engine.leonardo.flux import FluxEngine  
 from core.engine.leonardo.photoreal import LeonardoPhotoRealEngine
 from core.engine.base import engine_registry
+from core.naming import NamingConfig
 import os
 
 
@@ -227,10 +228,10 @@ async def start_batch_processing(
         # Generate batch ID
         batch_id = str(uuid.uuid4())
         
-        # Create batch configuration
+        # Create batch configuration with unified output directory
         batch_config = BatchConfig(
             max_concurrent_requests=min(10, len(prompts)),  # Respect 10 concurrent limit
-            output_dir=f"batch_output/batch_{batch_id}",
+            output_dir=NamingConfig.BASE_OUTPUT_DIR,  # Use unified directory structure
             save_images=True,
             retry_attempts=2
         )

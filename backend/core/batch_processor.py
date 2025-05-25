@@ -16,6 +16,7 @@ from datetime import datetime
 from .schemas import GenerationRequest, GenerationResult
 from .engine.base import ImageGenerationEngine
 from .modules.image_generation_workflow import BatchImageGenerationWorkflow, ImageGenerationRequestFactory
+from .naming import GenerationNaming, NamingConfig, URLGeneration
 
 
 logger = logging.getLogger(__name__)
@@ -44,7 +45,7 @@ class BatchConfig:
     max_concurrent_requests: int = 10
     wait_timeout: int = 300  # 5 minutes timeout per request
     retry_attempts: int = 2
-    output_dir: str = "batch_output"
+    output_dir: str = NamingConfig.BASE_OUTPUT_DIR  # Use unified directory by default
     save_images: bool = True
     progress_callback: Optional[Callable[[int, int, str], None]] = None
 
@@ -65,16 +66,26 @@ class BatchProcessor:
         
         # Create batch ID and workflow
         self.batch_id = str(uuid.uuid4())
+        
+        # Always use the unified naming system for new batches
+        if use_enhanced_naming:
+            workflow_output_dir = NamingConfig.BASE_OUTPUT_DIR
+            self.output_path = Path(NamingConfig.BASE_OUTPUT_DIR)
+        else:
+            # Legacy: keep using the specified output_dir for backward compatibility
+            workflow_output_dir = config.output_dir
+            self.output_path = Path(config.output_dir)
+            
         self.batch_workflow = BatchImageGenerationWorkflow(
-            engine, self.batch_id, config.output_dir, use_enhanced_naming
+            engine, self.batch_id, workflow_output_dir, use_enhanced_naming
         )
         
         # Create output directory
-        self.output_path = Path(config.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
         
         logger.info(f"BatchProcessor initialized with max {config.max_concurrent_requests} concurrent requests")
         logger.info(f"Batch ID: {self.batch_id}, Enhanced naming: {use_enhanced_naming}")
+        logger.info(f"Output directory: {self.output_path}")
     
     def load_csv(self, csv_path: str) -> int:
         """
@@ -138,11 +149,30 @@ class BatchProcessor:
         
         # Initialize enhanced batch structure if using enhanced naming
         if self.use_enhanced_naming:
+            # Determine engine type from the engine instance
+            detected_engine_type = "phoenix"  # Default
+            engine_class_name = str(type(self.engine).__name__).lower()
+            if "flux" in engine_class_name:
+                detected_engine_type = "flux"
+            elif "photoreal" in engine_class_name:
+                detected_engine_type = "photoreal"
+            
+            # Use passed engine_type parameter or detected type
+            actual_engine_type = engine_type if engine_type != "phoenix" else detected_engine_type
+            
+            batch_description = f"Batch processing {len(self.jobs)} prompts"
+            batch_structure = GenerationNaming.create_batch_generation_structure(
+                self.batch_id, len(self.jobs), actual_engine_type, batch_description
+            )
+            self.batch_dir = Path(batch_structure["batch_directory"])
+            logger.info(f"Created enhanced batch structure: {self.batch_dir}")
+        else:
+            # Legacy workflow initialization
             batch_description = f"Batch processing {len(self.jobs)} prompts"
             batch_structure = self.batch_workflow.initialize_batch(
                 len(self.jobs), engine_type, batch_description
             )
-            logger.info(f"Created enhanced batch structure: {batch_structure['batch_dir']}")
+            logger.info(f"Created batch structure: {batch_structure['batch_dir']}")
         
         # Reset counters
         self.completed_jobs = []
@@ -228,6 +258,32 @@ class BatchProcessor:
                 request = self._create_generation_request(job.prompt, generation_params)
                 
                 if self.use_enhanced_naming:
+                    # Use enhanced naming system for job processing
+                    job_structure = GenerationNaming.create_batch_job_structure(
+                        self.batch_dir, job.id, engine_type, 
+                        generation_params.get('style'), job.prompt,
+                        generation_params.get('num_images', 1)
+                    )
+                    
+                    # Generate images using the engine
+                    result = await self.engine.generate(request)
+                    
+                    # Save images using the structured approach
+                    job.image_urls = []
+                    for i, image_data in enumerate(result.outputs):
+                        image_info = job_structure["images"][i] if i < len(job_structure["images"]) else {
+                            "path": job_structure["job_directory"] / f"image_{i+1:03d}.png",
+                            "url": URLGeneration.path_to_url(job_structure["job_directory"] / f"image_{i+1:03d}.png")
+                        }
+                        
+                        # Save image
+                        Path(image_info["path"]).write_bytes(image_data)
+                        job.image_urls.append(image_info["url"])
+                    
+                    job.generation_id = result.metadata.generation_id
+                    job.status = "completed"
+                    
+                else:
                     # Use enhanced workflow for job processing
                     job_result = await self.batch_workflow.process_single_job(
                         job.id, request, engine_type,
@@ -237,19 +293,6 @@ class BatchProcessor:
                     job.generation_id = job_result.get("generation_id")
                     job.image_urls = job_result.get("image_paths", [])
                     job.status = job_result.get("status", "completed")
-                    
-                else:
-                    # Legacy approach - generate and save manually
-                    result = await self.engine.generate(request)
-                    
-                    # Extract image URLs or save images
-                    if self.config.save_images:
-                        job.image_urls = await self._save_job_images(job, result)
-                    else:
-                        job.image_urls = getattr(result, 'image_urls', [])
-                    
-                    job.generation_id = result.metadata.generation_id
-                    job.status = "completed"
                 
                 job.end_time = datetime.now()
                 
