@@ -127,22 +127,57 @@ async def upload_csv(file: UploadFile = File(...)):
     try:
         # Read CSV content
         content = await file.read()
-        csv_text = content.decode('utf-8')
         
-        # Parse CSV
+        # Handle BOM and decode
+        if content.startswith(b'\xef\xbb\xbf'):
+            content = content[3:]  # Remove UTF-8 BOM
+        
+        try:
+            csv_text = content.decode('utf-8')
+        except UnicodeDecodeError:
+            try:
+                csv_text = content.decode('utf-8-sig')  # Handle BOM
+            except UnicodeDecodeError:
+                csv_text = content.decode('latin-1')  # Fallback encoding
+        
+        # Normalize line endings
+        csv_text = csv_text.replace('\r\n', '\n').replace('\r', '\n')
+        
+        # Try to parse as CSV
         csv_reader = csv.DictReader(io.StringIO(csv_text))
         
-        if not csv_reader.fieldnames or 'prompt' not in csv_reader.fieldnames:
-            raise HTTPException(status_code=400, detail="CSV must contain 'prompt' column")
+        # Check for 'prompt' column (case insensitive)
+        fieldnames = [name.lower().strip() for name in (csv_reader.fieldnames or [])]
+        prompt_column = None
+        
+        for original_name, lower_name in zip(csv_reader.fieldnames or [], fieldnames):
+            if lower_name in ['prompt', 'prompts', 'text', 'description']:
+                prompt_column = original_name
+                break
+        
+        if not prompt_column:
+            raise HTTPException(status_code=400, detail="CSV must contain a 'prompt' column (or similar: prompts, text, description)")
         
         prompts = []
         for i, row in enumerate(csv_reader):
-            prompt = row['prompt'].strip().strip('"')
-            if prompt:
-                prompts.append({
-                    "id": f"job_{i+1:03d}",
-                    "prompt": prompt
-                })
+            if prompt_column in row:
+                # Clean up the prompt text
+                prompt = row[prompt_column].strip()
+                
+                # Remove various quote patterns
+                if prompt.startswith('"""') and prompt.endswith('"""'):
+                    prompt = prompt[3:-3].strip()
+                elif prompt.startswith('"') and prompt.endswith('"'):
+                    prompt = prompt[1:-1].strip()
+                elif prompt.startswith("'") and prompt.endswith("'"):
+                    prompt = prompt[1:-1].strip()
+                
+                # Skip empty prompts
+                if prompt:
+                    prompts.append({
+                        "id": f"job_{i+1:03d}",
+                        "prompt": prompt
+                    })
         
         if not prompts:
             raise HTTPException(status_code=400, detail="No valid prompts found in CSV")

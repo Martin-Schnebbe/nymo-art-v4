@@ -129,24 +129,46 @@ const BatchProcess = () => {
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
-        const text = e.target?.result as string;
-        const lines = text.split('\n').filter(line => line.trim());
+        let text = e.target?.result as string;
+        
+        // Remove BOM if present
+        if (text.charCodeAt(0) === 0xFEFF) {
+          text = text.slice(1);
+        }
+        
+        // Normalize line endings and split into lines
+        const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n').filter(line => line.trim());
         
         if (lines.length < 2) {
           setCsvError('CSV must contain at least a header and one data row');
           return;
         }
 
+        // Check for prompt column (case insensitive)
         const header = lines[0].toLowerCase().trim();
-        if (!header.includes('prompt')) {
-          setCsvError('CSV must contain a "prompt" column');
+        const hasPromptColumn = ['prompt', 'prompts', 'text', 'description'].some(col => 
+          header.includes(col)
+        );
+        
+        if (!hasPromptColumn) {
+          setCsvError('CSV must contain a "prompt" column (or similar: prompts, text, description)');
           return;
         }
 
-        // Extract prompts (assuming simple CSV with just prompts)
+        // Extract prompts with better quote handling
         const prompts = lines.slice(1).map(line => {
-          // Remove quotes and clean up
-          return line.trim().replace(/^"/, '').replace(/"$/, '');
+          let prompt = line.trim();
+          
+          // Remove various quote patterns
+          if (prompt.startsWith('"""') && prompt.endsWith('"""')) {
+            prompt = prompt.slice(3, -3).trim();
+          } else if (prompt.startsWith('"') && prompt.endsWith('"')) {
+            prompt = prompt.slice(1, -1).trim();
+          } else if (prompt.startsWith("'") && prompt.endsWith("'")) {
+            prompt = prompt.slice(1, -1).trim();
+          }
+          
+          return prompt;
         }).filter(prompt => prompt.length > 0);
 
         if (prompts.length === 0) {

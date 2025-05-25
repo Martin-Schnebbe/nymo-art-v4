@@ -26,7 +26,7 @@ class BatchJob:
     prompt: str
     status: str = "pending"  # pending, processing, completed, failed
     generation_id: Optional[str] = None
-    image_urls: List[str] = None
+    image_urls: Optional[List[str]] = None  # 🔥 FIX: Make it Optional
     error: Optional[str] = None
     start_time: Optional[datetime] = None
     end_time: Optional[datetime] = None
@@ -58,6 +58,7 @@ class BatchProcessor:
         self.current_batch: List[BatchJob] = []
         self.completed_jobs: List[BatchJob] = []
         self.failed_jobs: List[BatchJob] = []
+        self.current_progress_callback: Optional[Callable[[int, int, str], None]] = None  # 🔥 FIX: Add progress callback
         
         # Create output directory
         self.output_path = Path(config.output_dir)
@@ -81,7 +82,9 @@ class BatchProcessor:
             with open(csv_path, 'r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 
-                if 'prompt' not in reader.fieldnames:
+                # 🔥 FIX: Check fieldnames exist and contain 'prompt'
+                fieldnames = reader.fieldnames or []
+                if 'prompt' not in fieldnames:
                     raise ValueError("CSV must contain 'prompt' column")
                 
                 for i, row in enumerate(reader):
@@ -126,7 +129,9 @@ class BatchProcessor:
         self.failed_jobs = []
         
         total_jobs = len(self.jobs)
-        processed_jobs = 0
+        
+        # Store progress callback for use in job processing
+        self.current_progress_callback = progress_callback or self.config.progress_callback
         
         # Process jobs in batches of max_concurrent_requests
         for i in range(0, len(self.jobs), self.config.max_concurrent_requests):
@@ -134,22 +139,8 @@ class BatchProcessor:
             
             logger.info(f"Processing batch {i//self.config.max_concurrent_requests + 1}: jobs {i+1}-{min(i+len(batch), total_jobs)}")
             
-            # Update progress
-            if progress_callback:
-                progress_callback(processed_jobs, total_jobs, f"Processing batch {len(batch)} jobs...")
-            elif self.config.progress_callback:
-                self.config.progress_callback(processed_jobs, total_jobs, f"Processing batch {len(batch)} jobs...")
-            
             # Process current batch concurrently
             await self._process_batch_concurrent(batch, generation_params)
-            
-            processed_jobs += len(batch)
-            
-            # Update progress
-            if progress_callback:
-                progress_callback(processed_jobs, total_jobs, f"Completed batch, downloading images...")
-            elif self.config.progress_callback:
-                self.config.progress_callback(processed_jobs, total_jobs, f"Completed batch, downloading images...")
             
             # Wait for all images to be downloaded before proceeding
             await self._wait_for_downloads(batch)
@@ -215,7 +206,15 @@ class BatchProcessor:
                 job.end_time = datetime.now()
                 
                 self.completed_jobs.append(job)
-                logger.info(f"✅ {job.id} completed: {len(job.image_urls)} images generated")
+                logger.info(f"✅ {job.id} completed: {len(job.image_urls or [])} images generated")  # 🔥 FIX: Handle None case
+                
+                # 🔥 FIX: Update progress for each completed job
+                if hasattr(self, 'current_progress_callback') and self.current_progress_callback:
+                    total_completed = len(self.completed_jobs) + len(self.failed_jobs)
+                    total_jobs = len(self.jobs)
+                    progress_message = f"Completed {job.id} ({total_completed}/{total_jobs})"
+                    self.current_progress_callback(total_completed, total_jobs, progress_message)
+                
                 return
                 
             except Exception as e:
@@ -228,6 +227,14 @@ class BatchProcessor:
                     job.end_time = datetime.now()
                     self.failed_jobs.append(job)
                     logger.error(f"❌ {job.id} failed after {self.config.retry_attempts + 1} attempts")
+                    
+                    # 🔥 FIX: Update progress for each failed job
+                    if hasattr(self, 'current_progress_callback') and self.current_progress_callback:
+                        total_completed = len(self.completed_jobs) + len(self.failed_jobs)
+                        total_jobs = len(self.jobs)
+                        progress_message = f"Failed {job.id} ({total_completed}/{total_jobs})"
+                        self.current_progress_callback(total_completed, total_jobs, progress_message)
+                    
                 else:
                     # Wait before retry
                     await asyncio.sleep(2 ** attempt)  # Exponential backoff
@@ -245,14 +252,14 @@ class BatchProcessor:
                 num_outputs=params.get('num_outputs', 1),
                 width=params.get('width', 1024),
                 height=params.get('height', 1024),
-                style=params.get('style'),
+                style=params.get('style'),  # 🔥 FIX: Optional[str] - can be None
                 contrast=params.get('contrast', 3.5),
                 alchemy=params.get('alchemy', True),
                 enhance_prompt=params.get('enhance_prompt', False),
                 negative_prompt=params.get('negative_prompt', ''),
                 ultra=params.get('ultra', False),
                 upscale=params.get('upscale', False),
-                upscale_strength=params.get('upscale_strength')
+                upscale_strength=params.get('upscale_strength', 0.5)  # 🔥 FIX: Provide default value
             )
         elif 'flux' in str(type(self.engine)).lower():
             from .schemas import LeonardoFluxRequest
@@ -261,11 +268,14 @@ class BatchProcessor:
                 num_outputs=params.get('num_outputs', 1),
                 width=params.get('width', 1024),
                 height=params.get('height', 1024),
-                style=params.get('style'),
+                model_type=params.get('model_type', 'flux_precision'),  # 🔥 FIX: Add model_type
+                style=params.get('style'),  # 🔥 FIX: Optional[str] - can be None
                 contrast=params.get('contrast', 3.5),
                 enhance_prompt=params.get('enhance_prompt', False),
+                enhance_prompt_instruction=params.get('enhance_prompt_instruction'),  # 🔥 FIX: Add missing param
                 negative_prompt=params.get('negative_prompt', ''),
-                ultra=params.get('ultra', False)
+                ultra=params.get('ultra', False),
+                seed=params.get('seed')  # 🔥 FIX: Add seed parameter
             )
         elif 'photoreal' in str(type(self.engine)).lower():
             from .schemas import LeonardoPhotoRealRequest
@@ -276,9 +286,9 @@ class BatchProcessor:
                 height=params.get('height', 1024),
                 photoreal_version=params.get('photoreal_version', 'v2'),
                 model_id=params.get('model_id'),
-                style=params.get('style'),
+                style=params.get('style', 'CINEMATIC'),  # 🔥 FIX: Provide default for required field
                 contrast=params.get('contrast', 3.5),
-                photoreal_strength=params.get('photoreal_strength'),
+                photoreal_strength=params.get('photoreal_strength'),  # 🔥 FIX: Optional - can be None
                 enhance_prompt=params.get('enhance_prompt', False),
                 negative_prompt=params.get('negative_prompt', '')
             )
