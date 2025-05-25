@@ -39,6 +39,7 @@ export interface BatchStatus {
   end_time?: string;
   duration?: number;
   error?: string;
+  message?: string; // <-- add this line
   jobs?: {
     pending: number;
     processing: number;

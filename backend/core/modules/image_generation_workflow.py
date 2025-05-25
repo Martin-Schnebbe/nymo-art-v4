@@ -10,6 +10,7 @@ from datetime import datetime
 
 from ..schemas import GenerationRequest, GenerationResult, LeonardoEngineConfig
 from ..engine.base import ImageGenerationEngine
+from .file_manager import EnhancedFileManager
 
 
 logger = logging.getLogger(__name__)
@@ -18,14 +19,18 @@ logger = logging.getLogger(__name__)
 class ImageGenerationWorkflow:
     """Encapsulates common image generation workflow patterns."""
     
-    def __init__(self, engine: ImageGenerationEngine, output_base_dir: str = "generated_images"):
+    def __init__(self, engine: ImageGenerationEngine, output_base_dir: str = "generated_images", use_enhanced_naming: bool = True):
         self.engine = engine
         self.output_base_dir = Path(output_base_dir)
         self.output_base_dir.mkdir(exist_ok=True)
+        self.use_enhanced_naming = use_enhanced_naming
+        if use_enhanced_naming:
+            self.file_manager = EnhancedFileManager(str(self.output_base_dir))
         
     async def generate_and_save(
         self, 
         request: GenerationRequest,
+        engine_type: str = "phoenix",
         output_subdir: Optional[str] = None,
         filename_prefix: Optional[str] = None,
         progress_callback: Optional[Callable[[str], None]] = None
@@ -35,8 +40,9 @@ class ImageGenerationWorkflow:
         
         Args:
             request: Generation request
+            engine_type: Type of engine being used (e.g., "phoenix", "flux", "photoreal")
             output_subdir: Optional subdirectory for output
-            filename_prefix: Optional prefix for filenames
+            filename_prefix: Optional prefix for filenames (only used with legacy naming)
             progress_callback: Optional callback for progress updates
             
         Returns:
@@ -52,26 +58,46 @@ class ImageGenerationWorkflow:
         if progress_callback:
             progress_callback("Images generated, saving to disk...")
         
-        # Save images
-        image_paths = self._save_images(
-            result, 
-            output_subdir=output_subdir,
-            filename_prefix=filename_prefix
-        )
-        
-        if progress_callback:
-            progress_callback(f"Saved {len(image_paths)} images successfully")
-        
-        # Create response metadata
-        return {
-            "generation_id": result.metadata.generation_id,
-            "status": "complete",
-            "num_images": len(result.outputs),
-            "image_urls": [self._path_to_url(path) for path in image_paths],
-            "local_paths": image_paths,
-            "metadata": result.metadata.parameters,
-            "cost_estimate": result.metadata.cost_estimate
-        }
+        # Save images with enhanced or legacy naming
+        if self.use_enhanced_naming:
+            save_result = self.file_manager.save_normal_generation(
+                request, result, engine_type, result.outputs, output_subdir
+            )
+            
+            if progress_callback:
+                progress_callback(f"Saved {save_result['num_images']} images with metadata")
+            
+            return {
+                "generation_id": result.metadata.generation_id,
+                "status": "complete",
+                "num_images": save_result['num_images'],
+                "image_urls": [self._path_to_url(path) for path in save_result['image_paths']],
+                "local_paths": save_result['image_paths'],
+                "metadata_path": save_result['metadata_path'],
+                "metadata": result.metadata.parameters,
+                "cost_estimate": result.metadata.cost_estimate,
+                "enhanced_metadata": save_result['metadata']
+            }
+        else:
+            # Legacy saving method
+            image_paths = self._save_images(
+                result, 
+                output_subdir=output_subdir,
+                filename_prefix=filename_prefix
+            )
+            
+            if progress_callback:
+                progress_callback(f"Saved {len(image_paths)} images successfully")
+            
+            return {
+                "generation_id": result.metadata.generation_id,
+                "status": "complete",
+                "num_images": len(result.outputs),
+                "image_urls": [self._path_to_url(path) for path in image_paths],
+                "local_paths": image_paths,
+                "metadata": result.metadata.parameters,
+                "cost_estimate": result.metadata.cost_estimate
+            }
     
     def _save_images(
         self, 
@@ -104,10 +130,9 @@ class ImageGenerationWorkflow:
     
     def _path_to_url(self, file_path: str) -> str:
         """Convert file path to URL for API responses."""
-        # Convert absolute path to relative URL
-        path = Path(file_path)
-        relative_path = path.relative_to(self.output_base_dir.parent)
-        return f"/{relative_path.as_posix()}"
+        # Always return /images/{filename} for frontend compatibility
+        filename = Path(file_path).name
+        return f"/images/{filename}"
     
     def estimate_cost(self, request: GenerationRequest) -> float:
         """Estimate generation cost."""
@@ -121,17 +146,43 @@ class ImageGenerationWorkflow:
 class BatchImageGenerationWorkflow:
     """Specialized workflow for batch image generation."""
     
-    def __init__(self, engine: ImageGenerationEngine, batch_id: str, output_base_dir: str = "batch_output"):
+    def __init__(self, engine: ImageGenerationEngine, batch_id: str, output_base_dir: str = "batch_output", use_enhanced_naming: bool = True):
         self.engine = engine
         self.batch_id = batch_id
         self.output_base_dir = Path(output_base_dir)
-        self.batch_dir = self.output_base_dir / f"batch_{batch_id}"
-        self.batch_dir.mkdir(parents=True, exist_ok=True)
+        self.use_enhanced_naming = use_enhanced_naming
+        
+        if use_enhanced_naming:
+            self.file_manager = EnhancedFileManager(str(self.output_base_dir))
+            # Create batch structure will be called separately
+            self.batch_dir = None
+            self.batch_metadata = None
+            self.batch_metadata_path = None
+        else:
+            # Legacy approach
+            self.batch_dir = self.output_base_dir / f"batch_{batch_id}"
+            self.batch_dir.mkdir(parents=True, exist_ok=True)
+    
+    def initialize_batch(self, total_jobs: int, engine_type: str, description: Optional[str] = None) -> Dict[str, Any]:
+        """Initialize batch with enhanced structure (only for enhanced naming)."""
+        if not self.use_enhanced_naming:
+            return {"batch_dir": str(self.batch_dir)}
+        
+        batch_structure = self.file_manager.create_batch_structure(
+            self.batch_id, total_jobs, engine_type, description
+        )
+        
+        self.batch_dir = Path(batch_structure["batch_dir"])
+        self.batch_metadata = batch_structure["batch_metadata"]
+        self.batch_metadata_path = Path(batch_structure["metadata_path"])
+        
+        return batch_structure
         
     async def process_single_job(
         self, 
         job_id: str,
         request: GenerationRequest,
+        engine_type: str = "phoenix",
         progress_callback: Optional[Callable[[str], None]] = None
     ) -> Dict[str, Any]:
         """Process a single batch job."""
@@ -144,36 +195,62 @@ class BatchImageGenerationWorkflow:
             # Generate images
             result = await self.engine.generate(request)
             
-            # Save images in job-specific directory
-            job_dir = self.batch_dir / job_id
-            job_dir.mkdir(exist_ok=True)
-            
-            image_paths = []
-            for i, image_data in enumerate(result.outputs):
-                filename = f"{job_id}_image_{i+1:02d}.png"
-                filepath = job_dir / filename
-                filepath.write_bytes(image_data)
-                image_paths.append(str(filepath))
-            
-            end_time = datetime.now()
-            
-            return {
-                "job_id": job_id,
-                "status": "completed",
-                "generation_id": result.metadata.generation_id,
-                "image_paths": image_paths,
-                "num_images": len(image_paths),
-                "start_time": start_time.isoformat(),
-                "end_time": end_time.isoformat(),
-                "processing_time": (end_time - start_time).total_seconds(),
-                "cost_estimate": result.metadata.cost_estimate
-            }
+            if self.use_enhanced_naming and self.batch_dir and self.batch_metadata:
+                # Use enhanced file management
+                job_result = self.file_manager.save_batch_job(
+                    self.batch_dir, job_id, request, result, engine_type,
+                    result.outputs, self.batch_metadata
+                )
+                
+                # Save updated batch metadata
+                if self.batch_metadata_path:
+                    self.file_manager.metadata.save_metadata(
+                        self.batch_metadata, self.batch_metadata_path
+                    )
+                
+                end_time = datetime.now()
+                job_result.update({
+                    "start_time": start_time.isoformat(),
+                    "end_time": end_time.isoformat(),
+                    "processing_time": (end_time - start_time).total_seconds()
+                })
+                
+                return job_result
+            else:
+                # Legacy approach
+                if self.batch_dir is None:
+                    raise ValueError("Batch directory not initialized")
+                
+                # Save images in job-specific directory
+                job_dir = self.batch_dir / job_id
+                job_dir.mkdir(exist_ok=True)
+                
+                image_paths = []
+                for i, image_data in enumerate(result.outputs):
+                    filename = f"{job_id}_image_{i+1:02d}.png"
+                    filepath = job_dir / filename
+                    filepath.write_bytes(image_data)
+                    image_paths.append(str(filepath))
+                
+                end_time = datetime.now()
+                
+                return {
+                    "job_id": job_id,
+                    "status": "completed",
+                    "generation_id": result.metadata.generation_id,
+                    "image_paths": image_paths,
+                    "num_images": len(image_paths),
+                    "start_time": start_time.isoformat(),
+                    "end_time": end_time.isoformat(),
+                    "processing_time": (end_time - start_time).total_seconds(),
+                    "cost_estimate": result.metadata.cost_estimate
+                }
             
         except Exception as e:
             end_time = datetime.now()
             logger.error(f"Job {job_id} failed: {e}")
             
-            return {
+            job_result = {
                 "job_id": job_id,
                 "status": "failed",
                 "error": str(e),
@@ -181,6 +258,22 @@ class BatchImageGenerationWorkflow:
                 "end_time": end_time.isoformat(),
                 "processing_time": (end_time - start_time).total_seconds()
             }
+            
+            # Update batch metadata for failed job if using enhanced naming
+            if self.use_enhanced_naming and self.batch_metadata and self.batch_metadata_path:
+                self.file_manager.metadata.update_batch_job_metadata(
+                    self.batch_metadata, job_id, job_result
+                )
+                self.file_manager.metadata.save_metadata(
+                    self.batch_metadata, self.batch_metadata_path
+                )
+            
+            return job_result
+    
+    def finalize_batch(self) -> None:
+        """Finalize batch processing."""
+        if self.use_enhanced_naming and self.batch_metadata and self.batch_metadata_path:
+            self.file_manager.finalize_batch(self.batch_metadata_path, self.batch_metadata)
 
 
 class ImageGenerationRequestFactory:

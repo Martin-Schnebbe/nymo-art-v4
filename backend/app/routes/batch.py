@@ -308,8 +308,12 @@ async def process_batch_async(batch_id: str, processor: BatchProcessor, config: 
                     "message": message
                 })
         
+        # Determine engine type from config
+        model = config.get('model', 'phoenix').lower()
+        engine_type = model  # Use the model name as engine type
+        
         # Process the batch
-        result = await processor.process_batch(config, progress_callback)
+        result = await processor.process_batch(config, engine_type, progress_callback)
         
         # Update final status
         active_batches[batch_id].update({
@@ -350,8 +354,8 @@ async def get_batch_status(batch_id: str):
         processor = active_batches[batch_id]["processor"]
         status = processor.get_status()
         batch_info.update({
-            "completed_jobs": status["completed"],  # ✅ Fix: Use correct completed count
-            "failed_jobs": status["failed"],       # ✅ Fix: Use correct failed count
+            "completed_jobs": status["completed"],
+            "failed_jobs": status["failed"],
             "jobs": {
                 "pending": status["pending"],
                 "processing": status["processing"],
@@ -359,6 +363,11 @@ async def get_batch_status(batch_id: str):
                 "failed": status["failed"]
             }
         })
+        
+        # Fortschritt berechnen
+        total = batch_info.get("total_jobs") or 1
+        progress = int(100 * (status["completed"] + status["failed"]) / total)
+        batch_info["progress"] = progress
     
     return batch_info
 

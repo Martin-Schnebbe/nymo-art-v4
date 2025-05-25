@@ -88,6 +88,7 @@ const BatchProcess = () => {
   const [jobs, setJobs] = useState<BatchJob[]>([]);
   const [overallProgress, setOverallProgress] = useState(0);
   const [processingError, setProcessingError] = useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = useState<string>('');
 
   // Handle CSV file upload
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -226,6 +227,7 @@ const BatchProcess = () => {
         
         // Update overall progress
         setOverallProgress(status.progress || 0);
+        setStatusMessage(status.message || '');
         
         // Update jobs status based on the counts from the backend
         if (status.jobs) {
@@ -666,6 +668,14 @@ const BatchProcess = () => {
                           {processingError}
                         </Alert>
                       )}
+
+                      <Box sx={{ mb: 2 }}>
+                        {statusMessage && (
+                          <Alert severity="info" sx={{ borderRadius: 2, mb: 2 }}>
+                            {statusMessage}
+                          </Alert>
+                        )}
+                      </Box>
                     </StepContent>
                   </Step>
                 </Stepper>

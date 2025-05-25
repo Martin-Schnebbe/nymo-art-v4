@@ -124,14 +124,14 @@ async def generate_phoenix_images(
     """Generate images using Leonardo Phoenix model."""
     
     try:
-        # Create workflow
-        workflow = ImageGenerationWorkflow(engine)
+        # Create workflow with enhanced naming
+        workflow = ImageGenerationWorkflow(engine, use_enhanced_naming=True)
         
         # Convert API request to engine request using factory
         engine_request = ImageGenerationRequestFactory.from_api_request(request, "phoenix")
         
-        # Use shared workflow
-        result = await workflow.generate_and_save(engine_request)
+        # Use shared workflow with engine type
+        result = await workflow.generate_and_save(engine_request, engine_type="phoenix")
         
         logger.info(f"Generated {result['num_images']} Phoenix images successfully")
         
@@ -161,14 +161,14 @@ async def generate_flux_images(
     """Generate images using Leonardo FLUX model."""
     
     try:
-        # Create workflow
-        workflow = ImageGenerationWorkflow(engine)
+        # Create workflow with enhanced naming
+        workflow = ImageGenerationWorkflow(engine, use_enhanced_naming=True)
         
         # Convert API request to engine request using factory
         engine_request = ImageGenerationRequestFactory.from_api_request(request, "flux")
         
-        # Use shared workflow
-        result = await workflow.generate_and_save(engine_request)
+        # Use shared workflow with engine type
+        result = await workflow.generate_and_save(engine_request, engine_type="flux")
         
         logger.info(f"Generated {result['num_images']} FLUX images successfully")
         
@@ -198,14 +198,14 @@ async def generate_photoreal_images(
     """Generate images using Leonardo PhotoReal model."""
     
     try:
-        # Create workflow
-        workflow = ImageGenerationWorkflow(engine)
+        # Create workflow with enhanced naming
+        workflow = ImageGenerationWorkflow(engine, use_enhanced_naming=True)
         
         # Convert API request to engine request using factory
         engine_request = ImageGenerationRequestFactory.from_api_request(request, "photoreal")
         
-        # Use shared workflow
-        result = await workflow.generate_and_save(engine_request)
+        # Use shared workflow with engine type
+        result = await workflow.generate_and_save(engine_request, engine_type="photoreal")
         
         logger.info(f"Generated {result['num_images']} PhotoReal images successfully")
         
