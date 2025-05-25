@@ -7,232 +7,238 @@ Checks for occupied ports, terminates existing processes, and starts the applica
 import os
 import sys
 import time
-import signal
 import subprocess
-import platform
+import signal
 from pathlib import Path
-from typing import List, Optional
+from typing import Optional
+
+# Add utils directory to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'utils'))
+from process_manager import (
+    print_status, Colors, get_processes_by_port, kill_processes_on_port,
+    wait_for_port_clear, is_port_available, get_project_path
+)
 
 
-class Colors:
-    """ANSI color codes for terminal output."""
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-
-
-def print_status(message: str, status: str = "INFO") -> None:
-    """Print formatted status message."""
-    colors = {
-        "INFO": Colors.OKBLUE,
-        "SUCCESS": Colors.OKGREEN,
-        "WARNING": Colors.WARNING,
-        "ERROR": Colors.FAIL,
-        "HEADER": Colors.HEADER
-    }
-    color = colors.get(status, Colors.OKBLUE)
-    print(f"{color}[{status}]{Colors.ENDC} {message}")
-
-
-def check_port_occupied(port: int) -> List[int]:
-    """Check if a port is occupied and return list of PIDs using it."""
-    pids = []
-    
-    try:
-        if platform.system() == "Darwin":  # macOS
-            result = subprocess.run(
-                ["lsof", "-ti", f":{port}"],
-                capture_output=True,
-                text=True,
-                check=False
-            )
-            if result.returncode == 0 and result.stdout.strip():
-                pids = [int(pid) for pid in result.stdout.strip().split('\n') if pid.strip()]
-                
-        elif platform.system() == "Linux":
-            result = subprocess.run(
-                ["ss", "-tlnp", f"sport = {port}"],
-                capture_output=True,
-                text=True,
-                check=False
-            )
-            # Parse ss output to extract PIDs
-            if result.returncode == 0:
-                for line in result.stdout.split('\n'):
-                    if f":{port}" in line and "pid=" in line:
-                        # Extract PID from ss output
-                        pid_part = line.split("pid=")[1].split(",")[0]
-                        try:
-                            pids.append(int(pid_part))
-                        except ValueError:
-                            continue
-                            
-        elif platform.system() == "Windows":
-            result = subprocess.run(
-                ["netstat", "-ano"],
-                capture_output=True,
-                text=True,
-                check=False
-            )
-            if result.returncode == 0:
-                for line in result.stdout.split('\n'):
-                    if f":{port}" in line and "LISTENING" in line:
-                        parts = line.split()
-                        if len(parts) >= 5:
-                            try:
-                                pids.append(int(parts[-1]))
-                            except ValueError:
-                                continue
-                                
-    except Exception as e:
-        print_status(f"Error checking port {port}: {e}", "ERROR")
-        
-    return pids
-
-
-def terminate_processes(pids: List[int], port: int) -> bool:
-    """Terminate processes by PID."""
-    if not pids:
-        return True
-        
-    print_status(f"Found processes on port {port}: {pids}", "WARNING")
-    
-    for pid in pids:
-        try:
-            if platform.system() == "Windows":
-                subprocess.run(["taskkill", "/F", "/PID", str(pid)], check=True)
-            else:
-                os.kill(pid, signal.SIGTERM)
-                time.sleep(1)
-                # Check if process still exists, force kill if necessary
-                try:
-                    os.kill(pid, 0)  # Check if process exists
-                    print_status(f"Process {pid} still running, force killing...", "WARNING")
-                    os.kill(pid, signal.SIGKILL)
-                except ProcessLookupError:
-                    pass  # Process already terminated
-                    
-            print_status(f"Terminated process {pid}", "SUCCESS")
-            
-        except (ProcessLookupError, PermissionError) as e:
-            print_status(f"Could not terminate process {pid}: {e}", "WARNING")
-        except Exception as e:
-            print_status(f"Error terminating process {pid}: {e}", "ERROR")
-            return False
-            
-    # Wait a bit for ports to be freed
-    time.sleep(2)
-    return True
-
-
-def check_dependencies() -> bool:
+def check_dependencies():
     """Check if required dependencies are available."""
     print_status("Checking dependencies...", "INFO")
     
-    # Check if Python requirements are met
-    backend_path = Path(__file__).parent / "backend"
-    requirements_file = Path(__file__).parent / "requirements.txt"
+    project_path = get_project_path()
+    backend_path = os.path.join(project_path, "backend")
+    frontend_path = os.path.join(project_path, "frontend")
     
-    if not requirements_file.exists():
-        print_status("requirements.txt not found", "ERROR")
+    # Check if backend directory exists
+    if not os.path.exists(backend_path):
+        print_status(f"Backend directory not found: {backend_path}", "ERROR")
         return False
-        
-    # Check if Node.js and npm are available
-    try:
-        subprocess.run(["node", "--version"], capture_output=True, check=True)
-        subprocess.run(["npm", "--version"], capture_output=True, check=True)
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        print_status("Node.js and npm are required for frontend", "ERROR")
-        return False
-        
-    # Check if frontend dependencies are installed
-    frontend_path = Path(__file__).parent / "frontend"
-    node_modules = frontend_path / "node_modules"
     
-    if not node_modules.exists():
-        print_status("Frontend dependencies not installed, running npm install...", "WARNING")
-        try:
-            subprocess.run(["npm", "install"], cwd=frontend_path, check=True)
-            print_status("Frontend dependencies installed", "SUCCESS")
-        except subprocess.CalledProcessError:
-            print_status("Failed to install frontend dependencies", "ERROR")
-            return False
-            
-    print_status("Dependencies check completed", "SUCCESS")
+    # Check if frontend directory exists
+    if not os.path.exists(frontend_path):
+        print_status(f"Frontend directory not found: {frontend_path}", "ERROR")
+        return False
+    
+    # Check if main.py exists in backend
+    main_py = os.path.join(backend_path, "app", "main.py")
+    if not os.path.exists(main_py):
+        print_status(f"Backend main.py not found: {main_py}", "ERROR")
+        return False
+    
+    # Check if package.json exists in frontend
+    package_json = os.path.join(frontend_path, "package.json")
+    if not os.path.exists(package_json):
+        print_status(f"Frontend package.json not found: {package_json}", "ERROR")
+        return False
+    
+    print_status("All dependencies found", "SUCCESS")
     return True
 
 
-def start_backend() -> Optional[subprocess.Popen]:
-    """Start the FastAPI backend server."""
+def ensure_ports_available():
+    """Ensure required ports are available, clearing Nymo processes if needed."""
+    ports = [8000, 5173]  # Backend, Frontend
+    
+    for port in ports:
+        print_status(f"Checking port {port}...", "INFO")
+        
+        if is_port_available(port):
+            print_status(f"Port {port} is available", "SUCCESS")
+            continue
+        
+        # Port is occupied, check what's using it
+        all_processes = get_processes_by_port(port)
+        nymo_processes = [p for p in all_processes if p.is_nymo_process]
+        non_nymo_processes = [p for p in all_processes if not p.is_nymo_process]
+        
+        if nymo_processes:
+            print_status(f"Found {len(nymo_processes)} existing Nymo processes on port {port}", "WARNING")
+            for process in nymo_processes:
+                print_status(f"  - PID {process.pid}: {process.full_command[:60]}...", "WARNING")
+            
+            print_status(f"Terminating existing Nymo processes on port {port}...", "INFO")
+            nymo_killed, _ = kill_processes_on_port(port, kill_non_nymo=False)
+            
+            if nymo_killed > 0:
+                print_status(f"Terminated {nymo_killed} Nymo processes", "SUCCESS")
+                
+                # Wait for port to clear
+                if wait_for_port_clear(port, timeout=10):
+                    print_status(f"Port {port} is now available", "SUCCESS")
+                else:
+                    print_status(f"Port {port} still occupied after cleanup", "ERROR")
+                    return False
+            else:
+                print_status(f"Failed to clear Nymo processes on port {port}", "ERROR")
+                return False
+        
+        if non_nymo_processes:
+            print_status(f"WARNING: Port {port} is occupied by non-Nymo processes:", "WARNING")
+            for process in non_nymo_processes:
+                print_status(f"  - PID {process.pid}: {process.full_command[:60]}...", "WARNING")
+            
+            response = input(f"Kill non-Nymo processes on port {port}? (y/N): ").strip().lower()
+            if response == 'y':
+                _, non_nymo_killed = kill_processes_on_port(port, kill_non_nymo=True)
+                if non_nymo_killed > 0:
+                    print_status(f"Terminated {non_nymo_killed} non-Nymo processes", "SUCCESS")
+                    if wait_for_port_clear(port, timeout=10):
+                        print_status(f"Port {port} is now available", "SUCCESS")
+                    else:
+                        print_status(f"Port {port} still occupied", "ERROR")
+                        return False
+                else:
+                    print_status(f"Failed to clear non-Nymo processes on port {port}", "ERROR")
+                    return False
+            else:
+                print_status(f"Cannot start application: port {port} is occupied", "ERROR")
+                return False
+    
+    return True
+
+
+def start_backend():
+    """Start the backend server."""
     print_status("Starting backend server...", "INFO")
     
-    backend_path = Path(__file__).parent / "backend"
+    project_path = get_project_path()
+    backend_path = os.path.join(project_path, "backend")
     
     try:
-        # Start uvicorn server
+        # Change to backend directory and start uvicorn
         process = subprocess.Popen(
-            [
-                sys.executable, "-m", "uvicorn", 
-                "app.main:app", 
-                "--reload", 
-                "--host", "0.0.0.0",
-                "--port", "8000"
-            ],
+            ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
             cwd=backend_path,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
+            stderr=subprocess.PIPE,
+            text=True
         )
         
-        # Wait a bit and check if process is still running
+        # Wait a moment to see if it starts successfully
         time.sleep(3)
         
+        # Check if process is still running
         if process.poll() is None:
-            print_status("Backend server started successfully on port 8000", "SUCCESS")
+            print_status("Backend server started successfully", "SUCCESS")
+            print_status("Backend running on http://localhost:8000", "SUCCESS")
             return process
         else:
+            # Process terminated, get error output
             stdout, stderr = process.communicate()
-            print_status(f"Backend failed to start: {stderr.decode()}", "ERROR")
+            print_status("Backend server failed to start", "ERROR")
+            if stderr:
+                print_status(f"Error: {stderr}", "ERROR")
+            if stdout:
+                print_status(f"Output: {stdout}", "ERROR")
             return None
             
+    except FileNotFoundError:
+        print_status("uvicorn not found. Install it with: pip install uvicorn", "ERROR")
+        return None
     except Exception as e:
         print_status(f"Error starting backend: {e}", "ERROR")
         return None
 
 
-def start_frontend() -> Optional[subprocess.Popen]:
-    """Start the React frontend development server."""
-    print_status("Starting frontend server...", "INFO")
+def start_frontend():
+    """Start the frontend development server."""
+    print_status("Starting frontend development server...", "INFO")
     
-    frontend_path = Path(__file__).parent / "frontend"
+    project_path = get_project_path()
+    frontend_path = os.path.join(project_path, "frontend")
     
     try:
-        # Start Vite dev server
+        # Change to frontend directory and start development server
         process = subprocess.Popen(
             ["npm", "run", "dev"],
             cwd=frontend_path,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
+            stderr=subprocess.PIPE,
+            text=True
         )
         
-        # Wait a bit and check if process is still running
-        time.sleep(3)
+        # Wait a moment to see if it starts successfully
+        time.sleep(5)
         
+        # Check if process is still running
         if process.poll() is None:
-            print_status("Frontend server started successfully on port 5173", "SUCCESS")
+            print_status("Frontend development server started successfully", "SUCCESS")
+            print_status("Frontend running on http://localhost:5173", "SUCCESS")
             return process
         else:
+            # Process terminated, get error output
             stdout, stderr = process.communicate()
-            print_status(f"Frontend failed to start: {stderr.decode()}", "ERROR")
+            print_status("Frontend development server failed to start", "ERROR")
+            if stderr:
+                print_status(f"Error: {stderr}", "ERROR")
+            if stdout:
+                print_status(f"Output: {stdout}", "ERROR")
             return None
             
+    except FileNotFoundError:
+        print_status("npm not found. Make sure Node.js and npm are installed", "ERROR")
+        return None
     except Exception as e:
         print_status(f"Error starting frontend: {e}", "ERROR")
         return None
+
+
+def wait_for_services():
+    """Wait for services to be fully ready."""
+    print_status("Waiting for services to start...", "INFO")
+    
+    # Wait for backend to be ready
+    backend_ready = False
+    for _ in range(30):  # 30 second timeout
+        try:
+            import urllib.request
+            urllib.request.urlopen("http://localhost:8000/health", timeout=1)
+            backend_ready = True
+            break
+        except:
+            time.sleep(1)
+    
+    if backend_ready:
+        print_status("Backend is ready", "SUCCESS")
+    else:
+        print_status("Backend health check failed", "WARNING")
+    
+    # Wait for frontend to be ready
+    frontend_ready = False
+    for _ in range(30):  # 30 second timeout
+        try:
+            import urllib.request
+            urllib.request.urlopen("http://localhost:5173", timeout=1)
+            frontend_ready = True
+            break
+        except:
+            time.sleep(1)
+    
+    if frontend_ready:
+        print_status("Frontend is ready", "SUCCESS")
+    else:
+        print_status("Frontend availability check failed", "WARNING")
+    
+    return backend_ready and frontend_ready
 
 
 def main():
@@ -240,82 +246,87 @@ def main():
     print_status("🚀 Nymo Art v4 - Application Startup", "HEADER")
     print_status("=" * 50, "HEADER")
     
-    # Define ports to check
-    ports = [8000, 5173]  # Backend, Frontend
-    
-    # Check and clean up occupied ports
-    for port in ports:
-        print_status(f"Checking port {port}...", "INFO")
-        occupied_pids = check_port_occupied(port)
-        
-        if occupied_pids:
-            print_status(f"Port {port} is occupied", "WARNING")
-            if not terminate_processes(occupied_pids, port):
-                print_status(f"Failed to clean up port {port}", "ERROR")
-                sys.exit(1)
-        else:
-            print_status(f"Port {port} is free", "SUCCESS")
-    
     # Check dependencies
     if not check_dependencies():
-        print_status("Dependency check failed", "ERROR")
+        print_status("❌ Dependency check failed", "ERROR")
         sys.exit(1)
     
-    # Start backend
+    # Ensure ports are available
+    if not ensure_ports_available():
+        print_status("❌ Port setup failed", "ERROR")
+        sys.exit(1)
+    
+    # Start services
     backend_process = start_backend()
     if not backend_process:
-        print_status("Failed to start backend", "ERROR")
+        print_status("❌ Backend startup failed", "ERROR")
         sys.exit(1)
     
-    # Start frontend
     frontend_process = start_frontend()
     if not frontend_process:
-        print_status("Failed to start frontend", "ERROR")
-        # Clean up backend process
+        print_status("❌ Frontend startup failed", "ERROR")
+        # Kill backend if frontend fails
         backend_process.terminate()
         sys.exit(1)
     
-    # Success message
-    print_status("=" * 50, "HEADER")
-    print_status("🎉 Application started successfully!", "SUCCESS")
-    print_status("Backend:  http://localhost:8000", "SUCCESS")
-    print_status("Frontend: http://localhost:5173", "SUCCESS")
-    print_status("API Docs: http://localhost:8000/docs", "SUCCESS")
-    print_status("=" * 50, "HEADER")
-    print_status("Press Ctrl+C to stop all services", "INFO")
+    # Wait for services to be ready
+    services_ready = wait_for_services()
     
+    # Final status
+    print_status("=" * 50, "HEADER")
+    if services_ready:
+        print_status("✅ Nymo Art v4 started successfully!", "SUCCESS")
+        print_status("", "INFO")
+        print_status("🌐 Frontend: http://localhost:5173", "SUCCESS")
+        print_status("🔧 Backend API: http://localhost:8000", "SUCCESS")
+        print_status("📚 API Docs: http://localhost:8000/docs", "SUCCESS")
+        print_status("", "INFO")
+        print_status("Press Ctrl+C to stop the application", "INFO")
+    else:
+        print_status("⚠️ Services started but health checks failed", "WARNING")
+        print_status("Check the application manually", "WARNING")
+    
+    print_status("=" * 50, "HEADER")
+    
+    # Keep the script running and handle graceful shutdown
     try:
-        # Keep the script running and monitor processes
         while True:
-            time.sleep(5)
+            time.sleep(1)
             
             # Check if processes are still running
             if backend_process.poll() is not None:
-                print_status("Backend process died unexpectedly", "ERROR")
+                print_status("Backend process terminated unexpectedly", "ERROR")
                 break
                 
             if frontend_process.poll() is not None:
-                print_status("Frontend process died unexpectedly", "ERROR")
+                print_status("Frontend process terminated unexpectedly", "ERROR")
                 break
                 
     except KeyboardInterrupt:
-        print_status("\n🛑 Shutting down services...", "WARNING")
+        print_status("Received shutdown signal", "INFO")
         
-        # Terminate processes gracefully
-        try:
-            backend_process.terminate()
+        # Graceful shutdown
+        print_status("Stopping services...", "INFO")
+        
+        if frontend_process.poll() is None:
             frontend_process.terminate()
-            
-            # Wait for graceful shutdown
-            backend_process.wait(timeout=5)
-            frontend_process.wait(timeout=5)
-            
-        except subprocess.TimeoutExpired:
-            print_status("Force killing processes...", "WARNING")
-            backend_process.kill()
-            frontend_process.kill()
+            try:
+                frontend_process.wait(timeout=5)
+                print_status("Frontend stopped", "SUCCESS")
+            except subprocess.TimeoutExpired:
+                frontend_process.kill()
+                print_status("Frontend force killed", "WARNING")
         
-        print_status("All services stopped", "SUCCESS")
+        if backend_process.poll() is None:
+            backend_process.terminate()
+            try:
+                backend_process.wait(timeout=5)
+                print_status("Backend stopped", "SUCCESS")
+            except subprocess.TimeoutExpired:
+                backend_process.kill()
+                print_status("Backend force killed", "WARNING")
+        
+        print_status("Application stopped", "SUCCESS")
 
 
 if __name__ == "__main__":

@@ -7,299 +7,15 @@ Gracefully stops all running instances of the application.
 import os
 import sys
 import time
-import signal
-import subprocess
-import platform
-from typing import List, Dict, Set
 
-
-class Colors:
-    """ANSI color codes for terminal output."""
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-
-
-def print_status(message: str, status: str = "INFO") -> None:
-    """Print formatted status message."""
-    colors = {
-        "INFO": Colors.OKBLUE,
-        "SUCCESS": Colors.OKGREEN,
-        "WARNING": Colors.WARNING,
-        "ERROR": Colors.FAIL,
-        "HEADER": Colors.HEADER
-    }
-    color = colors.get(status, Colors.OKBLUE)
-    print(f"{color}[{status}]{Colors.ENDC} {message}")
-
-
-def get_processes_by_port(port: int) -> List[Dict]:
-    """Get detailed process information for a specific port."""
-    processes = []
-    
-    try:
-        if platform.system() == "Darwin":  # macOS
-            # Use lsof to get detailed process info
-            result = subprocess.run(
-                ["lsof", "-i", f":{port}", "-P"],
-                capture_output=True,
-                text=True,
-                check=False
-            )
-            
-            if result.returncode == 0 and result.stdout.strip():
-                lines = result.stdout.strip().split('\n')[1:]  # Skip header
-                for line in lines:
-                    parts = line.split()
-                    if len(parts) >= 10:
-                        try:
-                            processes.append({
-                                'pid': int(parts[1]),
-                                'command': parts[0],
-                                'user': parts[2],
-                                'port': port
-                            })
-                        except (ValueError, IndexError):
-                            continue
-                            
-        elif platform.system() == "Linux":
-            # Use ss and ps combination
-            result = subprocess.run(
-                ["ss", "-tlnp", f"sport = {port}"],
-                capture_output=True,
-                text=True,
-                check=False
-            )
-            
-            if result.returncode == 0:
-                for line in result.stdout.split('\n'):
-                    if f":{port}" in line and "pid=" in line:
-                        try:
-                            pid_part = line.split("pid=")[1].split(",")[0]
-                            pid = int(pid_part)
-                            
-                            # Get process details with ps
-                            ps_result = subprocess.run(
-                                ["ps", "-p", str(pid), "-o", "pid,user,comm", "--no-headers"],
-                                capture_output=True,
-                                text=True,
-                                check=False
-                            )
-                            
-                            if ps_result.returncode == 0:
-                                ps_parts = ps_result.stdout.strip().split()
-                                if len(ps_parts) >= 3:
-                                    processes.append({
-                                        'pid': pid,
-                                        'command': ps_parts[2],
-                                        'user': ps_parts[1],
-                                        'port': port
-                                    })
-                        except (ValueError, IndexError):
-                            continue
-                            
-        elif platform.system() == "Windows":
-            # Use netstat and tasklist
-            result = subprocess.run(
-                ["netstat", "-ano"],
-                capture_output=True,
-                text=True,
-                check=False
-            )
-            
-            if result.returncode == 0:
-                for line in result.stdout.split('\n'):
-                    if f":{port}" in line and "LISTENING" in line:
-                        parts = line.split()
-                        if len(parts) >= 5:
-                            try:
-                                pid = int(parts[-1])
-                                
-                                # Get process details with tasklist
-                                tasklist_result = subprocess.run(
-                                    ["tasklist", "/FI", f"PID eq {pid}", "/FO", "CSV"],
-                                    capture_output=True,
-                                    text=True,
-                                    check=False
-                                )
-                                
-                                if tasklist_result.returncode == 0:
-                                    lines = tasklist_result.stdout.strip().split('\n')
-                                    if len(lines) >= 2:
-                                        # Parse CSV output
-                                        task_info = lines[1].replace('"', '').split(',')
-                                        if len(task_info) >= 2:
-                                            processes.append({
-                                                'pid': pid,
-                                                'command': task_info[0],
-                                                'user': task_info[1] if len(task_info) > 1 else 'Unknown',
-                                                'port': port
-                                            })
-                            except (ValueError, IndexError):
-                                continue
-                                
-    except Exception as e:
-        print_status(f"Error getting processes for port {port}: {e}", "ERROR")
-        
-    return processes
-
-
-def get_nymo_related_processes() -> List[Dict]:
-    """Find all processes related to Nymo Art application."""
-    all_processes = []
-    
-    # Check standard ports
-    ports = [8000, 5173]  # Backend, Frontend
-    
-    for port in ports:
-        processes = get_processes_by_port(port)
-        all_processes.extend(processes)
-    
-    # 🔥 FIX: Only look for specific Nymo Art processes by command line patterns
-    nymo_patterns = [
-        'app.main:app',  # Backend uvicorn process
-        'uvicorn app.main',  # Alternative backend pattern
-        'npm run dev',  # Frontend npm process
-        'vite dev',  # Frontend vite process
-        'start_app.py',  # Start script
-        # Add path-based detection for this specific project
-        'nymo art v4'  # Process running from our project directory
-    ]
-    
-    try:
-        if platform.system() == "Darwin" or platform.system() == "Linux":
-            # Use ps to find processes by command line
-            result = subprocess.run(
-                ["ps", "auxww"],  # Add 'ww' to see full command lines
-                capture_output=True,
-                text=True,
-                check=False
-            )
-            
-            if result.returncode == 0:
-                for line in result.stdout.split('\n'):
-                    # 🔥 FIX: Only match very specific patterns
-                    for pattern in nymo_patterns:
-                        if pattern in line:
-                            parts = line.split()
-                            if len(parts) >= 11:
-                                try:
-                                    pid = int(parts[1])
-                                    # Avoid duplicates
-                                    if not any(p['pid'] == pid for p in all_processes):
-                                        all_processes.append({
-                                            'pid': pid,
-                                            'command': ' '.join(parts[10:]),
-                                            'user': parts[0],
-                                            'port': 'unknown'
-                                        })
-                                except (ValueError, IndexError):
-                                    continue
-                                    
-        elif platform.system() == "Windows":
-            # 🔥 FIX: More specific Windows process detection
-            for pattern in nymo_patterns:
-                try:
-                    result = subprocess.run(
-                        ["wmic", "process", "where", f"CommandLine like '%{pattern}%'", "get", "ProcessId,CommandLine"],
-                        capture_output=True,
-                        text=True,
-                        check=False
-                    )
-                    
-                    if result.returncode == 0:
-                        lines = result.stdout.strip().split('\n')[1:]  # Skip header
-                        for line in lines:
-                            if line.strip():
-                                parts = line.strip().split()
-                                if len(parts) >= 2:
-                                    try:
-                                        pid = int(parts[-1])  # PID is usually last
-                                        command = ' '.join(parts[:-1])  # Everything else is command
-                                        if not any(p['pid'] == pid for p in all_processes):
-                                            all_processes.append({
-                                                'pid': pid,
-                                                'command': command,
-                                                'user': 'Unknown',
-                                                'port': 'unknown'
-                                            })
-                                    except (ValueError, IndexError):
-                                        continue
-                except Exception:
-                    continue
-                    
-    except Exception as e:
-        print_status(f"Error searching for Nymo processes: {e}", "ERROR")
-    
-    return all_processes
-
-
-def terminate_process_graceful(process_info: Dict) -> bool:
-    """Terminate a process gracefully, with fallback to force kill."""
-    pid = process_info['pid']
-    command = process_info['command']
-    
-    try:
-        print_status(f"Stopping process {pid} ({command})", "INFO")
-        
-        if platform.system() == "Windows":
-            # Try graceful termination first
-            subprocess.run(["taskkill", "/PID", str(pid)], check=True, capture_output=True)
-        else:
-            # Send SIGTERM first
-            os.kill(pid, signal.SIGTERM)
-            
-        # Wait for graceful shutdown
-        wait_time = 5
-        while wait_time > 0:
-            try:
-                if platform.system() == "Windows":
-                    result = subprocess.run(
-                        ["tasklist", "/FI", f"PID eq {pid}"],
-                        capture_output=True,
-                        text=True,
-                        check=False
-                    )
-                    if f"{pid}" not in result.stdout:
-                        break
-                else:
-                    os.kill(pid, 0)  # Check if process exists
-                    
-                time.sleep(1)
-                wait_time -= 1
-                
-            except (ProcessLookupError, subprocess.CalledProcessError):
-                # Process already terminated
-                break
-        
-        # If process still exists, force kill
-        if wait_time == 0:
-            print_status(f"Force killing process {pid}", "WARNING")
-            if platform.system() == "Windows":
-                subprocess.run(["taskkill", "/F", "/PID", str(pid)], check=True)
-            else:
-                os.kill(pid, signal.SIGKILL)
-        
-        print_status(f"Successfully stopped process {pid}", "SUCCESS")
-        return True
-        
-    except (ProcessLookupError, subprocess.CalledProcessError):
-        # Process doesn't exist or already terminated
-        print_status(f"Process {pid} was already stopped", "SUCCESS")
-        return True
-        
-    except PermissionError:
-        print_status(f"Permission denied killing process {pid}", "ERROR")
-        return False
-        
-    except Exception as e:
-        print_status(f"Error stopping process {pid}: {e}", "ERROR")
-        return False
+# Add utils directory to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'utils'))
+from process_manager import (
+    print_status, Colors, cleanup_all_nymo_processes, 
+    kill_processes_on_port, wait_for_port_clear,
+    get_processes_by_port, get_nymo_processes_by_port, 
+    get_non_nymo_processes_by_port
+)
 
 
 def cleanup_temp_files():
@@ -324,76 +40,68 @@ def main():
     print_status("🛑 Nymo Art v4 - Application Shutdown", "HEADER")
     print_status("=" * 50, "HEADER")
     
-    # Find all Nymo-related processes
-    print_status("Scanning for running Nymo Art processes...", "INFO")
-    processes = get_nymo_related_processes()
+    # Method 1: Clean up processes by known ports (most reliable)
+    ports_to_check = [8000, 5173]  # Backend, Frontend
+    total_killed = 0
     
-    if not processes:
-        print_status("No running Nymo Art processes found", "SUCCESS")
-        print_status("Application is already stopped", "SUCCESS")
-        return
+    for port in ports_to_check:
+        print_status(f"Checking port {port}...", "INFO")
+        
+        # Get all processes on this port
+        all_processes = get_processes_by_port(port)
+        nymo_processes = [p for p in all_processes if p.is_nymo_process]
+        non_nymo_processes = [p for p in all_processes if not p.is_nymo_process]
+        
+        if nymo_processes:
+            print_status(f"Found {len(nymo_processes)} Nymo processes on port {port}", "INFO")
+            for process in nymo_processes:
+                print_status(f"  - PID {process.pid}: {process.full_command[:60]}...", "INFO")
+            
+            # Kill Nymo processes
+            nymo_killed, _ = kill_processes_on_port(port, kill_non_nymo=False)
+            total_killed += nymo_killed
+            
+            # Wait for port to clear
+            if wait_for_port_clear(port, timeout=5):
+                print_status(f"Port {port} is now clear", "SUCCESS")
+            else:
+                print_status(f"Port {port} still occupied after cleanup", "WARNING")
+        
+        if non_nymo_processes:
+            print_status(f"Found {len(non_nymo_processes)} non-Nymo processes on port {port}:", "WARNING")
+            for process in non_nymo_processes:
+                print_status(f"  - PID {process.pid}: {process.full_command[:60]}...", "WARNING")
+            print_status("Leaving non-Nymo processes alone", "INFO")
+        
+        if not all_processes:
+            print_status(f"Port {port} is already clear", "SUCCESS")
     
-    # Display found processes
-    print_status(f"Found {len(processes)} running processes:", "INFO")
-    for proc in processes:
-        port_info = f" (port {proc['port']})" if proc['port'] != 'unknown' else ""
-        print_status(f"  PID {proc['pid']}: {proc['command'][:50]}...{port_info}", "INFO")
+    # Method 2: Find any remaining Nymo processes not tied to specific ports
+    print_status("Scanning for remaining Nymo processes...", "INFO")
+    remaining_killed = cleanup_all_nymo_processes()
+    total_killed += remaining_killed
     
-    print()
-    
-    # Group processes by type for ordered shutdown
-    backend_processes = [p for p in processes if 'uvicorn' in p['command'] or 'app.main' in p['command']]
-    frontend_processes = [p for p in processes if 'vite' in p['command'] or ('npm' in p['command'] and 'dev' in p['command'])]
-    other_processes = [p for p in processes if p not in backend_processes and p not in frontend_processes]
-    
-    success_count = 0
-    total_count = len(processes)
-    
-    # Stop frontend first (dependent on backend)
-    if frontend_processes:
-        print_status("Stopping frontend processes...", "INFO")
-        for proc in frontend_processes:
-            if terminate_process_graceful(proc):
-                success_count += 1
-    
-    # Stop backend
-    if backend_processes:
-        print_status("Stopping backend processes...", "INFO")
-        for proc in backend_processes:
-            if terminate_process_graceful(proc):
-                success_count += 1
-    
-    # Stop other related processes
-    if other_processes:
-        print_status("Stopping other related processes...", "INFO")
-        for proc in other_processes:
-            if terminate_process_graceful(proc):
-                success_count += 1
-    
-    # Clean up
+    # Clean up temporary files
     cleanup_temp_files()
     
     # Final status
     print_status("=" * 50, "HEADER")
-    if success_count == total_count:
-        print_status(f"✅ Successfully stopped all {total_count} processes", "SUCCESS")
-        print_status("Nymo Art v4 application shutdown complete", "SUCCESS")
+    if total_killed > 0:
+        print_status(f"✅ Successfully stopped {total_killed} Nymo processes", "SUCCESS")
     else:
-        failed_count = total_count - success_count
-        print_status(f"⚠️ Stopped {success_count}/{total_count} processes", "WARNING")
-        print_status(f"{failed_count} processes could not be stopped", "WARNING")
+        print_status("No Nymo Art processes were running", "SUCCESS")
     
+    print_status("Nymo Art v4 application shutdown complete", "SUCCESS")
     print_status("=" * 50, "HEADER")
     
     # Final verification
-    time.sleep(2)
-    remaining_processes = get_nymo_related_processes()
-    if remaining_processes:
-        print_status(f"Warning: {len(remaining_processes)} processes still running", "WARNING")
-        for proc in remaining_processes:
-            print_status(f"  PID {proc['pid']}: {proc['command'][:50]}...", "WARNING")
+    time.sleep(1)
+    print_status("Final verification...", "INFO")
+    final_check = cleanup_all_nymo_processes()
+    if final_check == 0:
+        print_status("✅ Verification: No Nymo Art processes running", "SUCCESS")
     else:
-        print_status("Verification: No Nymo Art processes running", "SUCCESS")
+        print_status(f"⚠️ Warning: Found {final_check} additional processes during verification", "WARNING")
 
 
 if __name__ == "__main__":
