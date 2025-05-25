@@ -61,7 +61,7 @@ class BatchProcessor:
         
         # Create output directory
         self.output_path = Path(config.output_dir)
-        self.output_path.mkdir(exist_ok=True)
+        self.output_path.mkdir(parents=True, exist_ok=True)
         
         logger.info(f"BatchProcessor initialized with max {config.max_concurrent_requests} concurrent requests")
     

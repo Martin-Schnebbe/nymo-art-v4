@@ -22,6 +22,8 @@ export interface BatchConfig {
   enhance_prompt?: boolean;
   negative_prompt?: string;
   ultra?: boolean;
+  upscale?: boolean;
+  upscale_strength?: number;
   photoreal_version?: string;
   photoreal_strength?: number;
 }

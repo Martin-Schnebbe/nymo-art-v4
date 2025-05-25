@@ -1,0 +1,16 @@
+{
+  "total_jobs": 1,
+  "completed": 0,
+  "failed": 1,
+  "duration_seconds": 4.005202,
+  "start_time": "2025-05-25T06:45:37.448221",
+  "end_time": "2025-05-25T06:45:41.453423",
+  "output_directory": "batch_output/batch_f95ac410-e85f-4e1e-913b-edc7760bfee7",
+  "failed_jobs": [
+    {
+      "id": "job_001",
+      "prompt": "A beautiful sunset over mountains with golden light reflecting on a peaceful lake",
+      "error": "Unknown style 'CINEMATIC'. Available: ['3D Render', 'Bokeh', 'Cinematic', 'Cinematic Concept', 'Creative', 'Dynamic', 'Fashion', 'Graphic Design Pop Art', 'Graphic Design Vector', 'HDR', 'Illustration', 'Macro', 'Minimalist', 'Moody', 'None', 'Portrait', 'Pro B&W photography', 'Pro color photography', 'Pro film photography', 'Portrait Fashion', 'Ray Traced', 'Sketch (B&W)', 'Sketch (Color)', 'Stock Photo', 'Vibrant']"
+    }
+  ]
+}

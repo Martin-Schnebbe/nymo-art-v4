@@ -1,0 +1,10 @@
+{
+  "total_jobs": 1,
+  "completed": 1,
+  "failed": 0,
+  "duration_seconds": 12.085773,
+  "start_time": "2025-05-25T06:59:09.136092",
+  "end_time": "2025-05-25T06:59:21.221865",
+  "output_directory": "batch_output/batch_5ef7dcd5-1227-403c-b740-a2b998e0728f",
+  "failed_jobs": []
+}

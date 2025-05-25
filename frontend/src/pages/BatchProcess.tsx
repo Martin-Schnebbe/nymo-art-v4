@@ -74,6 +74,8 @@ const BatchProcess = () => {
     enhance_prompt: false,
     negative_prompt: '',
     ultra: false,
+    upscale: false,
+    upscale_strength: 0.35,
     photoreal_version: 'v2',
     photoreal_strength: 0.35,
   });

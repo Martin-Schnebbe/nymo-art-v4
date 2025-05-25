@@ -14,10 +14,12 @@ import uuid
 
 from ..api import ValidationError, EngineError
 from core.batch_processor import BatchProcessor, BatchConfig, BatchJob
-from core.schemas import GenerationRequest
+from core.schemas import GenerationRequest, LeonardoEngineConfig
 from core.engine.leonardo.phoenix import PhoenixEngine
 from core.engine.leonardo.flux import FluxEngine  
 from core.engine.leonardo.photoreal import LeonardoPhotoRealEngine
+from core.engine.base import engine_registry
+import os
 
 
 logger = logging.getLogger(__name__)
@@ -31,15 +33,84 @@ active_batches: Dict[str, Dict[str, Any]] = {}
 # Dependency to get engines
 def get_phoenix_engine() -> PhoenixEngine:
     """Get configured Phoenix engine."""
-    return PhoenixEngine.from_env()
+    try:
+        engine = engine_registry.get("leonardo", "phoenix")
+        if not isinstance(engine, PhoenixEngine):
+            raise ValueError("Engine is not a PhoenixEngine instance")
+        return engine
+    except ValueError:
+        # Create and register engine if not exists
+        api_key = os.getenv("LEONARDO_API_KEY")
+        if not api_key:
+            raise ValidationError("Leonardo API key not configured")
+        
+        config = LeonardoEngineConfig(
+            name="phoenix",
+            vendor="leonardo",
+            enabled=True,
+            api_key=api_key,
+            base_url="https://cloud.leonardo.ai/api/rest/v1",
+            timeout=300,
+            poll_interval=2
+        )
+        
+        engine = PhoenixEngine(config)
+        engine_registry.register(engine)
+        return engine
 
 def get_flux_engine() -> FluxEngine:
     """Get configured FLUX engine."""
-    return FluxEngine.from_env()
+    try:
+        engine = engine_registry.get("leonardo", "flux")
+        if not isinstance(engine, FluxEngine):
+            raise ValueError("Engine is not a FluxEngine instance")
+        return engine
+    except ValueError:
+        # Create and register engine if not exists
+        api_key = os.getenv("LEONARDO_API_KEY")
+        if not api_key:
+            raise ValidationError("Leonardo API key not configured")
+        
+        config = LeonardoEngineConfig(
+            name="flux",
+            vendor="leonardo",
+            enabled=True,
+            api_key=api_key,
+            base_url="https://cloud.leonardo.ai/api/rest/v1",
+            timeout=300,
+            poll_interval=2
+        )
+        
+        engine = FluxEngine(config)
+        engine_registry.register(engine)
+        return engine
 
 def get_photoreal_engine() -> LeonardoPhotoRealEngine:
     """Get configured PhotoReal engine."""
-    return LeonardoPhotoRealEngine.from_env()
+    try:
+        engine = engine_registry.get("leonardo", "photoreal")
+        if not isinstance(engine, LeonardoPhotoRealEngine):
+            raise ValueError("Engine is not a LeonardoPhotoRealEngine instance")
+        return engine
+    except ValueError:
+        # Create and register engine if not exists
+        api_key = os.getenv("LEONARDO_API_KEY")
+        if not api_key:
+            raise ValidationError("Leonardo API key not configured")
+        
+        config = LeonardoEngineConfig(
+            name="photoreal",
+            vendor="leonardo",
+            enabled=True,
+            api_key=api_key,
+            base_url="https://cloud.leonardo.ai/api/rest/v1",
+            timeout=300,
+            poll_interval=2
+        )
+        
+        engine = LeonardoPhotoRealEngine(config)
+        engine_registry.register(engine)
+        return engine
 
 
 @router.post("/upload-csv")
@@ -50,7 +121,7 @@ async def upload_csv(file: UploadFile = File(...)):
     Returns:
         List of prompts extracted from the CSV
     """
-    if not file.filename.endswith('.csv'):
+    if not file.filename or not file.filename.endswith('.csv'):
         raise HTTPException(status_code=400, detail="File must be a CSV")
     
     try:
@@ -61,7 +132,7 @@ async def upload_csv(file: UploadFile = File(...)):
         # Parse CSV
         csv_reader = csv.DictReader(io.StringIO(csv_text))
         
-        if 'prompt' not in csv_reader.fieldnames:
+        if not csv_reader.fieldnames or 'prompt' not in csv_reader.fieldnames:
             raise HTTPException(status_code=400, detail="CSV must contain 'prompt' column")
         
         prompts = []
@@ -242,6 +313,8 @@ async def get_batch_status(batch_id: str):
         processor = active_batches[batch_id]["processor"]
         status = processor.get_status()
         batch_info.update({
+            "completed_jobs": status["completed"],  # ✅ Fix: Use correct completed count
+            "failed_jobs": status["failed"],       # ✅ Fix: Use correct failed count
             "jobs": {
                 "pending": status["pending"],
                 "processing": status["processing"],
