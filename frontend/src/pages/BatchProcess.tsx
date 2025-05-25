@@ -245,6 +245,8 @@ const BatchProcess = () => {
       try {
         const status = await batchClient.getBatchStatus(batchId);
         
+        console.log('📊 Status update:', status); // Debug logging
+        
         // Update overall progress
         setOverallProgress(status.progress || 0);
         
@@ -289,7 +291,7 @@ const BatchProcess = () => {
         console.error('Error polling batch status:', error);
         // Continue polling unless it's a critical error
       }
-    }, 2000); // Poll every 2 seconds
+    }, 1000); // 🔥 Poll faster: every 1 second instead of 2
 
     // Store interval reference for cleanup
     return pollInterval;

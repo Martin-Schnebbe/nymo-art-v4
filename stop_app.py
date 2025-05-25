@@ -160,21 +160,22 @@ def get_nymo_related_processes() -> List[Dict]:
         processes = get_processes_by_port(port)
         all_processes.extend(processes)
     
-    # Also look for processes by name/command
-    nymo_keywords = [
-        'uvicorn',
-        'app.main:app',
-        'vite',
-        'npm run dev',
-        'node',
-        'python'
+    # 🔥 FIX: Only look for specific Nymo Art processes by command line patterns
+    nymo_patterns = [
+        'app.main:app',  # Backend uvicorn process
+        'uvicorn app.main',  # Alternative backend pattern
+        'npm run dev',  # Frontend npm process
+        'vite dev',  # Frontend vite process
+        'start_app.py',  # Start script
+        # Add path-based detection for this specific project
+        'nymo art v4'  # Process running from our project directory
     ]
     
     try:
         if platform.system() == "Darwin" or platform.system() == "Linux":
-            # Use ps to find processes by command
+            # Use ps to find processes by command line
             result = subprocess.run(
-                ["ps", "aux"],
+                ["ps", "auxww"],  # Add 'ww' to see full command lines
                 capture_output=True,
                 text=True,
                 check=False
@@ -182,8 +183,9 @@ def get_nymo_related_processes() -> List[Dict]:
             
             if result.returncode == 0:
                 for line in result.stdout.split('\n'):
-                    for keyword in nymo_keywords:
-                        if keyword in line and 'nymo' in line.lower():
+                    # 🔥 FIX: Only match very specific patterns
+                    for pattern in nymo_patterns:
+                        if pattern in line:
                             parts = line.split()
                             if len(parts) >= 11:
                                 try:
@@ -200,11 +202,11 @@ def get_nymo_related_processes() -> List[Dict]:
                                     continue
                                     
         elif platform.system() == "Windows":
-            # Use wmic or tasklist to find processes
-            for keyword in ['uvicorn', 'node', 'python']:
+            # 🔥 FIX: More specific Windows process detection
+            for pattern in nymo_patterns:
                 try:
                     result = subprocess.run(
-                        ["tasklist", "/FI", f"IMAGENAME eq {keyword}.exe", "/FO", "CSV"],
+                        ["wmic", "process", "where", f"CommandLine like '%{pattern}%'", "get", "ProcessId,CommandLine"],
                         capture_output=True,
                         text=True,
                         check=False
@@ -213,15 +215,16 @@ def get_nymo_related_processes() -> List[Dict]:
                     if result.returncode == 0:
                         lines = result.stdout.strip().split('\n')[1:]  # Skip header
                         for line in lines:
-                            if 'nymo' in line.lower():
-                                task_info = line.replace('"', '').split(',')
-                                if len(task_info) >= 2:
+                            if line.strip():
+                                parts = line.strip().split()
+                                if len(parts) >= 2:
                                     try:
-                                        pid = int(task_info[1])
+                                        pid = int(parts[-1])  # PID is usually last
+                                        command = ' '.join(parts[:-1])  # Everything else is command
                                         if not any(p['pid'] == pid for p in all_processes):
                                             all_processes.append({
                                                 'pid': pid,
-                                                'command': task_info[0],
+                                                'command': command,
                                                 'user': 'Unknown',
                                                 'port': 'unknown'
                                             })

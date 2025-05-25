@@ -300,9 +300,11 @@ async def process_batch_async(batch_id: str, processor: BatchProcessor, config: 
         # Progress callback to update status
         def progress_callback(completed: int, total: int, message: str):
             if batch_id in active_batches:
+                progress_percentage = (completed / total) * 100 if total > 0 else 0
+                logger.info(f"🔄 Progress callback: {completed}/{total} ({progress_percentage:.1f}%) - {message}")
                 active_batches[batch_id].update({
                     "completed": completed,
-                    "progress": (completed / total) * 100 if total > 0 else 0,
+                    "progress": progress_percentage,
                     "message": message
                 })
         
