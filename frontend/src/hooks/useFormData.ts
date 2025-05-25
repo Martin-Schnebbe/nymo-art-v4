@@ -14,7 +14,7 @@ export const useFormData = (selectedModel: 'phoenix' | 'flux' | 'photoreal') => 
     ...getModelDefaults(selectedModel)
   } as FormData));
 
-  // Reset form data when model changes
+  // Reset form data when model changes or photoreal version changes
   useEffect(() => {
     const currentStyles = getAvailableStyles(selectedModel, formData.photoreal_version);
     const currentStyle = formData.style;
@@ -26,7 +26,7 @@ export const useFormData = (selectedModel: 'phoenix' | 'flux' | 'photoreal') => 
         style: defaults.style
       }));
     }
-  }, [selectedModel, formData.photoreal_version, formData.style]);
+  }, [selectedModel, formData.photoreal_version]);
 
   // Create handlers using utility functions
   const handleInputChange = createInputHandler(setFormData);

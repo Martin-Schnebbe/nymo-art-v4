@@ -4,31 +4,19 @@ import {
   Card,
   CardContent,
   Typography,
-  TextField,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Box,
   Alert,
   CircularProgress,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
 } from '@mui/material';
 import {
-  ExpandMore as ExpandMoreIcon,
   Image as ImageIcon,
-  Settings as SettingsIcon,
 } from '@mui/icons-material';
 
 import ModelSelector from '../components/ModelSelector';
 import PromptInput from '../components/PromptInput';
 import DimensionsSelector from '../components/DimensionsSelector';
-import PhoenixSettings from '../components/PhoenixSettings';
-import FluxSettings from '../components/FluxSettings';
-import PhotoRealSettings from '../components/PhotoRealSettings';
+import ModelFilters from '../components/ModelFilters';
 import ImageGallery from '../components/ImageGallery';
 import { useFormData } from '../hooks/useFormData';
 
@@ -44,8 +32,7 @@ const Generate = () => {
   const { 
     formData, 
     handleInputChange, 
-    handleSelectChange, 
-    getAvailableStyles 
+    handleSelectChange
   } = useFormData(selectedModel);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -119,128 +106,13 @@ const Generate = () => {
                   onHeightChange={handleSelectChange('height')}
                 />
 
-                {/* Advanced Settings */}
-                <Accordion 
-                  sx={{ 
-                    mb: 3, 
-                    background: 'rgba(248, 250, 252, 0.8)',
-                    border: '1px solid rgba(226, 232, 240, 0.5)',
-                    borderRadius: 3,
-                    '&:before': { display: 'none' },
-                    '& .MuiAccordionSummary-root': {
-                      borderRadius: 3,
-                    },
-                    '& .MuiAccordionDetails-root': {
-                      borderRadius: '0 0 12px 12px',
-                    }
-                  }}
-                >
-                  <AccordionSummary 
-                    expandIcon={<ExpandMoreIcon />}
-                    sx={{ borderRadius: 3 }}
-                  >
-                    <Box display="flex" alignItems="center">
-                      <SettingsIcon sx={{ mr: 2, color: 'text.secondary' }} />
-                      <Typography fontWeight="500">Advanced Settings</Typography>
-                    </Box>
-                  </AccordionSummary>
-                  <AccordionDetails sx={{ pt: 2, pb: 3 }}>
-                    <Box display="flex" flexDirection="column" gap={3}>
-                      {/* Basic Settings Row */}
-                      <Box display="flex" gap={2}>
-                        <FormControl fullWidth size="small">
-                          <InputLabel>Images</InputLabel>
-                          <Select
-                            name="num_images"
-                            value={formData.num_images}
-                            onChange={handleSelectChange('num_images')}
-                            label="Images"
-                            sx={{ borderRadius: 2 }}
-                          >
-                            {[1,2,3,4,5,6,7,8,9,10].map(num => (
-                              <MenuItem key={num} value={num}>{num} image{num > 1 ? 's' : ''}</MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        
-                        <FormControl fullWidth size="small">
-                          <InputLabel>Style</InputLabel>
-                          <Select
-                            name="style"
-                            value={formData.style || 'Dynamic'}
-                            onChange={handleSelectChange('style')}
-                            label="Style"
-                            sx={{ borderRadius: 2 }}
-                          >
-                            {getAvailableStyles().map((style) => (
-                              <MenuItem key={style} value={style}>
-                                {style}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        
-                        <FormControl fullWidth size="small">
-                          <InputLabel>Contrast</InputLabel>
-                          <Select
-                            name="contrast"
-                            value={formData.contrast}
-                            onChange={handleSelectChange('contrast')}
-                            label="Contrast"
-                            sx={{ borderRadius: 2 }}
-                          >
-                            <MenuItem value={1.0}>1.0 - Subtle</MenuItem>
-                            <MenuItem value={1.3}>1.3 - Light</MenuItem>
-                            <MenuItem value={1.8}>1.8 - Moderate</MenuItem>
-                            <MenuItem value={2.5}>2.5 - Medium</MenuItem>
-                            <MenuItem value={3.0}>3.0 - Enhanced</MenuItem>
-                            <MenuItem value={3.5}>3.5 - Strong</MenuItem>
-                            <MenuItem value={4.0}>4.0 - Bold</MenuItem>
-                            <MenuItem value={4.5}>4.5 - Maximum</MenuItem>
-                          </Select>
-                        </FormControl>
-                      </Box>
-                      
-                      {/* Model-specific settings */}
-                      {selectedModel === 'phoenix' && (
-                        <PhoenixSettings 
-                          formData={formData} 
-                          onChange={handleInputChange}
-                        />
-                      )}
-                      
-                      {selectedModel === 'flux' && (
-                        <FluxSettings 
-                          formData={formData} 
-                          onChange={handleInputChange}
-                          onSelectChange={handleSelectChange}
-                        />
-                      )}
-                      
-                      {selectedModel === 'photoreal' && (
-                        <PhotoRealSettings 
-                          formData={formData} 
-                          onChange={handleInputChange}
-                          onSelectChange={handleSelectChange}
-                        />
-                      )}
-                      
-                      {/* Negative Prompt */}
-                      <TextField
-                        fullWidth
-                        size="small"
-                        multiline
-                        rows={2}
-                        name="negative_prompt"
-                        label="Negative Prompt (Optional)"
-                        placeholder="blurry, low quality, distorted..."
-                        value={formData.negative_prompt || ''}
-                        onChange={handleInputChange}
-                        sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
-                      />
-                    </Box>
-                  </AccordionDetails>
-                </Accordion>
+                {/* Model Filters */}
+                <ModelFilters
+                  selectedModel={selectedModel}
+                  formData={formData}
+                  handleInputChange={handleInputChange}
+                  handleSelectChange={handleSelectChange}
+                />
 
                 {/* Generate Button */}
                 <Button

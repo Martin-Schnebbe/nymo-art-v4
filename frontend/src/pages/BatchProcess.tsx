@@ -10,9 +10,6 @@ import {
   Select,
   MenuItem,
   Box,
-  AppBar,
-  Toolbar,
-  Avatar,
   Alert,
   CircularProgress,
   LinearProgress,
@@ -30,9 +27,6 @@ import {
   Chip,
   IconButton,
   Tooltip,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
 } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material';
 import {
@@ -41,17 +35,16 @@ import {
   Pause as PauseIcon,
   Stop as StopIcon,
   Download as DownloadIcon,
-  Settings as SettingsIcon,
   CheckCircle as CheckCircleIcon,
   Error as ErrorIcon,
-  ExpandMore as ExpandMoreIcon,
-  AutoAwesome as AutoAwesomeIcon,
   InsertDriveFile as FileIcon,
 } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
 import * as batchClient from '../services/batchClient';
 import type { BatchJob, BatchConfig } from '../services/batchClient';
-import { getAvailableStyles } from '../utils/modelConfig';
+import { getModelDefaults } from '../utils/modelConfig';
+import ModelSelector from '../components/ModelSelector';
+import DimensionsSelector from '../components/DimensionsSelector';
+import ModelFilters from '../components/ModelFilters';
 
 const BatchProcess = () => {
   // Stepper state
@@ -79,6 +72,8 @@ const BatchProcess = () => {
     upscale_strength: 0.35,
     photoreal_version: 'v2',
     photoreal_strength: 0.35,
+    // Additional model-specific fields
+    model_id: '',
   });
 
   // Processing state
@@ -180,9 +175,35 @@ const BatchProcess = () => {
     const value = event.target.value;
     setBatchConfig(prev => ({
       ...prev,
-      [field]: field === 'num_images' || field === 'width' || field === 'height' || field === 'contrast' || field === 'photoreal_strength'
+      [field]: field === 'num_images' || field === 'width' || field === 'height' || field === 'contrast' || field === 'photoreal_strength' || field === 'upscale_strength' || field === 'seed'
         ? Number(value)
-        : field === 'alchemy' || field === 'enhance_prompt' || field === 'ultra'
+        : field === 'alchemy' || field === 'enhance_prompt' || field === 'ultra' || field === 'upscale'
+        ? value === 'true'
+        : value
+    }));
+  };
+
+  // Handle input changes for model-specific components
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setBatchConfig(prev => ({
+      ...prev,
+      [name]: ['seed', 'upscale_strength', 'photoreal_strength'].includes(name) 
+        ? Number(value) || 0
+        : ['alchemy', 'enhance_prompt', 'ultra', 'upscale'].includes(name)
+        ? value === 'true'
+        : value
+    }));
+  };
+
+  // Handle select changes for model-specific components
+  const handleSelectChange = (name: string) => (event: SelectChangeEvent<any>) => {
+    const value = event.target.value;
+    setBatchConfig(prev => ({
+      ...prev,
+      [name]: ['seed', 'upscale_strength', 'photoreal_strength'].includes(name)
+        ? Number(value)
+        : ['alchemy', 'enhance_prompt', 'ultra', 'upscale'].includes(name)
         ? value === 'true'
         : value
     }));
@@ -328,48 +349,6 @@ const BatchProcess = () => {
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-      {/* Header */}
-      <AppBar position="sticky" elevation={0} sx={{ bgcolor: 'background.paper/80', backdropFilter: 'blur(20px)' }}>
-        <Toolbar>
-          <Avatar
-            sx={{ 
-              width: 32, 
-              height: 32, 
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              mr: 2 
-            }}
-          >
-            <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 'bold', color: 'white' }}>
-              N
-            </Typography>
-          </Avatar>
-          <Typography variant="h6" sx={{ flexGrow: 1, color: 'text.primary', fontWeight: 600 }}>
-            Nymo Art Studio - Batch Processing
-          </Typography>
-          <Box sx={{ display: 'flex', gap: 2 }}>
-            <Button 
-              component={Link} 
-              to="/" 
-              variant="outlined" 
-              size="small"
-              sx={{ borderRadius: 2 }}
-            >
-              Single Generation
-            </Button>
-            <Chip 
-              icon={<AutoAwesomeIcon />} 
-              label="Batch Mode" 
-              size="small" 
-              sx={{ 
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                color: 'white',
-                fontWeight: 500
-              }}
-            />
-          </Box>
-        </Toolbar>
-      </AppBar>
-
       <Container maxWidth="xl" sx={{ py: 4 }}>
         <Box display="flex" flexDirection={{ xs: 'column', lg: 'row' }} gap={4}>
           {/* Left Side - Stepper and Controls */}
@@ -459,19 +438,18 @@ const BatchProcess = () => {
 
                       <Box display="flex" flexDirection="column" gap={3}>
                         {/* Model Selection */}
-                        <FormControl fullWidth>
-                          <InputLabel>AI Model</InputLabel>
-                          <Select
-                            value={batchConfig.model}
-                            onChange={handleConfigChange('model')}
-                            label="AI Model"
-                            sx={{ borderRadius: 2 }}
-                          >
-                            <MenuItem value="phoenix">Leonardo Phoenix</MenuItem>
-                            <MenuItem value="flux">Leonardo FLUX</MenuItem>
-                            <MenuItem value="photoreal">Leonardo PhotoReal</MenuItem>
-                          </Select>
-                        </FormControl>
+                        <ModelSelector
+                          selectedModel={batchConfig.model}
+                          onModelChange={(model) => setBatchConfig(prev => ({
+                            ...getModelDefaults(model),
+                            model,
+                            // Prompt/CSV-Daten bleiben erhalten
+                            negative_prompt: prev.negative_prompt,
+                            num_images: prev.num_images,
+                            width: prev.width,
+                            height: prev.height
+                          }))}
+                        />
 
                         {/* Basic Settings */}
                         <Box display="flex" gap={2}>
@@ -488,61 +466,27 @@ const BatchProcess = () => {
                               ))}
                             </Select>
                           </FormControl>
-
-                          <FormControl fullWidth>
-                            <InputLabel>Dimensions</InputLabel>
-                            <Select
-                              value={`${batchConfig.width}x${batchConfig.height}`}
-                              onChange={(e) => {
-                                const [width, height] = e.target.value.split('x').map(Number);
-                                setBatchConfig(prev => ({ ...prev, width, height }));
-                              }}
-                              label="Dimensions"
-                              sx={{ borderRadius: 2 }}
-                            >
-                              <MenuItem value="512x512">512 × 512</MenuItem>
-                              <MenuItem value="768x768">768 × 768</MenuItem>
-                              <MenuItem value="1024x1024">1024 × 1024</MenuItem>
-                              <MenuItem value="1536x1536">1536 × 1536</MenuItem>
-                            </Select>
-                          </FormControl>
+                          <DimensionsSelector
+                            width={batchConfig.width}
+                            height={batchConfig.height}
+                            onWidthChange={handleConfigChange('width')}
+                            onHeightChange={handleConfigChange('height')}
+                          />
                         </Box>
 
                         {/* Advanced Settings */}
-                        <Accordion sx={{ borderRadius: 2 }}>
-                          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Box display="flex" alignItems="center">
-                              <SettingsIcon sx={{ mr: 2, color: 'text.secondary' }} />
-                              <Typography fontWeight="500">Advanced Settings</Typography>
-                            </Box>
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <Box display="flex" flexDirection="column" gap={2}>
-                              {/* Style Selection */}
-                              <FormControl fullWidth size="small">
-                                <InputLabel>Style</InputLabel>
-                                <Select
-                                  value={batchConfig.style}
-                                  onChange={handleConfigChange('style')}
-                                  label="Style"
-                                  sx={{ borderRadius: 2 }}
-                                >
-                                  {getAvailableStyles(
-                                    batchConfig.model,
-                                    batchConfig.photoreal_version as 'v1' | 'v2'
-                                  ).map((style) => (
-                                    <MenuItem key={style} value={style}>
-                                      {style}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-
-                              {/* Model-specific settings would go here */}
-                              {/* Similar to the Generate.tsx component */}
-                            </Box>
-                          </AccordionDetails>
-                        </Accordion>
+                        <ModelFilters
+                          selectedModel={batchConfig.model}
+                          formData={batchConfig}
+                          handleInputChange={(e) => {
+                            if (e.target.name === 'negative_prompt') {
+                              setBatchConfig(prev => ({ ...prev, negative_prompt: e.target.value }));
+                            } else {
+                              handleInputChange(e);
+                            }
+                          }}
+                          handleSelectChange={handleSelectChange}
+                        />
                       </Box>
 
                       <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>

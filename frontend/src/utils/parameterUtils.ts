@@ -17,6 +17,7 @@ export interface BaseFormData {
 
 export interface PhoenixFormData extends BaseFormData {
   alchemy: boolean;
+  ultra: boolean;
   upscale: boolean;
   upscale_strength: number;
 }
@@ -96,6 +97,7 @@ export const createPhoenixParams = (formData: FormData) => ({
   contrast: formData.contrast,
   alchemy: formData.alchemy,
   enhance_prompt: formData.enhance_prompt,
+  ultra: formData.ultra,
   negative_prompt: formData.negative_prompt,
   upscale: formData.upscale,
   upscale_strength: formData.upscale_strength,
@@ -128,7 +130,7 @@ export const createPhotoRealParams = (formData: FormData) => ({
   height: formData.height,
   num_images: formData.num_images,
   photoreal_version: formData.photoreal_version,
-  model_id: formData.photoreal_version === 'v2' ? formData.model_id : undefined,
+  model_id: formData.photoreal_version === 'v2' && formData.model_id?.trim() ? formData.model_id : undefined,
   style: formData.style,
   contrast: formData.contrast,
   photoreal_strength: formData.photoreal_version === 'v1' ? formData.photoreal_strength : undefined,
@@ -155,6 +157,7 @@ export const createBatchConfig = (
   // Model-specific parameters
   ...(selectedModel === 'phoenix' && {
     alchemy: formData.alchemy,
+    ultra: formData.ultra,
     upscale: formData.upscale,
     upscale_strength: formData.upscale_strength,
   }),

@@ -34,7 +34,7 @@ const Navigation = () => {
             sx={{ minHeight: 'auto' }}
           >
             <Tab 
-              label="Generate" 
+              label="Idea/Creation" 
               icon={<ImageIcon />}
               iconPosition="start"
               component={Link} 
@@ -47,7 +47,7 @@ const Navigation = () => {
               }}
             />
             <Tab 
-              label="Batch Processing" 
+              label="Batch Mode" 
               icon={<BatchIcon />}
               iconPosition="start"
               component={Link} 

@@ -1,12 +1,15 @@
 import { Box, FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
+import type { ChangeEvent } from 'react';
+import type { SelectChangeEvent } from '@mui/material';
+import type { FormData } from '../utils/parameterUtils';
 
 interface PhotoRealSettingsProps {
-  formData: any;
-  onChange: (e: any) => void;
-  onSelectChange: (name: string) => (event: any) => void;
+  formData: FormData;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleSelectChange: (name: keyof FormData) => (event: SelectChangeEvent<any>) => void;
 }
 
-const PhotoRealSettings = ({ formData, onChange, onSelectChange }: PhotoRealSettingsProps) => {
+const PhotoRealSettings = ({ formData, handleInputChange, handleSelectChange }: PhotoRealSettingsProps) => {
   return (
     <>
       <Box display="flex" gap={2}>
@@ -15,7 +18,7 @@ const PhotoRealSettings = ({ formData, onChange, onSelectChange }: PhotoRealSett
           <Select
             name="photoreal_version"
             value={formData.photoreal_version}
-            onChange={onSelectChange('photoreal_version')}
+            onChange={handleSelectChange('photoreal_version')}
             label="PhotoReal Version"
             sx={{
               borderRadius: 2,
@@ -33,7 +36,7 @@ const PhotoRealSettings = ({ formData, onChange, onSelectChange }: PhotoRealSett
           <Select
             name="enhance_prompt"
             value={formData.enhance_prompt ? 'true' : 'false'}
-            onChange={onChange}
+            onChange={handleSelectChange('enhance_prompt')}
             label="Enhance Prompt"
             sx={{
               borderRadius: 2,
@@ -54,7 +57,7 @@ const PhotoRealSettings = ({ formData, onChange, onSelectChange }: PhotoRealSett
           name="model_id"
           label="Model ID"
           value={formData.model_id}
-          onChange={onChange}
+          onChange={handleInputChange}
           placeholder="PhotoReal model identifier"
           sx={{
             '& .MuiOutlinedInput-root': {
@@ -69,7 +72,7 @@ const PhotoRealSettings = ({ formData, onChange, onSelectChange }: PhotoRealSett
           label="Strength (Optional)"
           type="number"
           value={formData.photoreal_strength || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           placeholder="PhotoReal strength (0.1-1.0)"
           inputProps={{
             step: 0.1,

@@ -9,6 +9,7 @@ export interface PhoenixParams {
   contrast?: number;
   alchemy?: boolean;
   enhance_prompt?: boolean;
+  ultra?: boolean;
   negative_prompt?: string;
   upscale?: boolean;
   upscale_strength?: number;

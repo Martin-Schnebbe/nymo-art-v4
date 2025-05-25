@@ -114,7 +114,8 @@ class LeonardoPhotoRealRequest(ImageGenerationRequest):
     def validate_photoreal_version(self):
         """Validate PhotoReal version-specific parameters."""
         if self.photoreal_version == "v2" and not self.model_id:
-            raise ValueError("PhotoReal v2 requires a model_id")
+            # Set default model_id for PhotoReal v2 if not provided
+            self.model_id = "aa77f04e-3eec-4034-9c07-d0f619684628"
         
         if self.photoreal_version == "v2" and self.photoreal_strength is not None:
             raise ValueError("photoreal_strength is only supported in PhotoReal v1")

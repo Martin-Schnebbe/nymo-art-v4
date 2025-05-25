@@ -26,6 +26,11 @@ export interface BatchConfig {
   upscale_strength?: number;
   photoreal_version?: string;
   photoreal_strength?: number;
+  // Additional model-specific fields
+  model_type?: string;
+  enhance_prompt_instruction?: string;
+  seed?: number;
+  model_id?: string;
 }
 
 export interface BatchStatus {

@@ -146,8 +146,8 @@ class ParameterValidator:
         if seed is not None:
             try:
                 seed = int(seed)
-                if not (0 <= seed <= 2**32 - 1):
-                    errors.append("Seed must be between 0 and 2^32-1")
+                if not (0 <= seed <= 2147483638):
+                    errors.append("Seed must be between 0 and 2147483638")
             except (ValueError, TypeError):
                 errors.append("Seed must be a valid integer")
         validated['seed'] = seed
@@ -170,11 +170,22 @@ class ParameterValidator:
             errors.append(f"PhotoReal version must be one of: {PHOTOREAL_VERSIONS}")
         validated['photoreal_version'] = version
         
-        # PhotoReal styles
-        PHOTOREAL_STYLES = ["CINEMATIC", "PHOTOGRAPHY", "PORTRAIT", "LIFESTYLE", "FASHION"]
+        # PhotoReal styles - Updated from Leonardo API documentation
+        PHOTOREAL_STYLES = [
+            "BOKEH", "CINEMATIC", "CINEMATIC_CLOSEUP", "CREATIVE", "FASHION", "FILM",
+            "FOOD", "HDR", "LONG_EXPOSURE", "MACRO", "MINIMALISTIC", "MONOCHROME",
+            "MOODY", "NEUTRAL", "PORTRAIT", "RETRO", "STOCK_PHOTO", "VIBRANT", "UNPROCESSED"
+        ]
+        PHOTOREAL_V1_STYLES = ["CINEMATIC", "CREATIVE", "VIBRANT"]
+        
         style = params.get('style', 'CINEMATIC')
-        if style not in PHOTOREAL_STYLES:
-            errors.append(f"PhotoReal style must be one of: {PHOTOREAL_STYLES}")
+        
+        # Validate style based on version
+        if version == "v1" and style not in PHOTOREAL_V1_STYLES:
+            errors.append(f"PhotoReal v1 style must be one of: {PHOTOREAL_V1_STYLES}")
+        elif version == "v2" and style not in PHOTOREAL_STYLES:
+            errors.append(f"PhotoReal v2 style must be one of: {PHOTOREAL_STYLES}")
+            
         validated['style'] = style
         
         # Validate model_id for v2
