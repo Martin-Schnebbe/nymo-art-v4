@@ -16,6 +16,7 @@ sys.path.insert(0, str(backend_path))
 
 from core.engine.leonardo.phoenix import PhoenixEngine
 from core.schemas import LeonardoPhoenixRequest, LeonardoEngineConfig
+from core.modules.image_generation_workflow import ImageGenerationWorkflow
 
 
 async def generate_test_images():
@@ -40,6 +41,9 @@ async def generate_test_images():
         api_key=api_key
     )
     engine = PhoenixEngine(config)
+    
+    # Create workflow for shared generate + save logic
+    workflow = ImageGenerationWorkflow(engine, "generated_images")
     
     # Test configurations
     test_configs = [
@@ -113,24 +117,24 @@ async def generate_test_images():
         print(f"   Contrast: {config['request'].contrast}")
         
         try:
-            # Generate images
-            result = await engine.generate(config['request'])
-            
-            # Save images
+            # Use shared workflow instead of manual generate + save
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             prefix = f"test_{i}_{config['name'].lower().replace(' ', '_')}_{timestamp}"
             
-            saved_paths = result.save_outputs(output_dir, prefix)
+            result = await workflow.generate_and_save(
+                config['request'],
+                filename_prefix=prefix
+            )
             
-            print(f"   ✅ Generated {len(saved_paths)} image(s)")
-            for path in saved_paths:
-                print(f"      📁 {path.name}")
+            print(f"   ✅ Generated {result['num_images']} image(s)")
+            for path in result['local_paths']:
+                print(f"      📁 {Path(path).name}")
             
             # Print metadata
-            print(f"   🔖 Generation ID: {result.metadata.generation_id}")
-            print(f"   💰 Cost Estimate: ${result.metadata.cost_estimate:.4f}")
+            print(f"   🔖 Generation ID: {result['generation_id']}")
+            print(f"   💰 Cost Estimate: ${result['cost_estimate']:.4f}")
             
-            total_images += len(saved_paths)
+            total_images += result['num_images']
             successful_generations += 1
             
         except Exception as e:

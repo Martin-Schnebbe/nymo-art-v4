@@ -14,6 +14,7 @@ from datetime import datetime
 
 from .schemas import GenerationRequest, GenerationResult
 from .engine.base import ImageGenerationEngine
+from .modules.image_generation_workflow import BatchImageGenerationWorkflow, ImageGenerationRequestFactory
 
 
 logger = logging.getLogger(__name__)
@@ -240,64 +241,10 @@ class BatchProcessor:
                     await asyncio.sleep(2 ** attempt)  # Exponential backoff
     
     def _create_generation_request(self, prompt: str, params: Dict[str, Any]) -> GenerationRequest:
-        """Create a generation request from prompt and parameters."""
-        # This will need to be implemented based on the specific engine type
-        # For now, we'll use a generic approach
-        
-        # Import the specific request class based on the engine type
-        if 'phoenix' in str(type(self.engine)).lower():
-            from .schemas import LeonardoPhoenixRequest
-            return LeonardoPhoenixRequest(
-                prompt=prompt,
-                num_outputs=params.get('num_outputs', 1),
-                width=params.get('width', 1024),
-                height=params.get('height', 1024),
-                style=params.get('style'),  # 🔥 FIX: Optional[str] - can be None
-                contrast=params.get('contrast', 3.5),
-                alchemy=params.get('alchemy', True),
-                enhance_prompt=params.get('enhance_prompt', False),
-                negative_prompt=params.get('negative_prompt', ''),
-                ultra=params.get('ultra', False),
-                upscale=params.get('upscale', False),
-                upscale_strength=params.get('upscale_strength', 0.5)  # 🔥 FIX: Provide default value
-            )
-        elif 'flux' in str(type(self.engine)).lower():
-            from .schemas import LeonardoFluxRequest
-            return LeonardoFluxRequest(
-                prompt=prompt,
-                num_outputs=params.get('num_outputs', 1),
-                width=params.get('width', 1024),
-                height=params.get('height', 1024),
-                model_type=params.get('model_type', 'flux_precision'),  # 🔥 FIX: Add model_type
-                style=params.get('style'),  # 🔥 FIX: Optional[str] - can be None
-                contrast=params.get('contrast', 3.5),
-                enhance_prompt=params.get('enhance_prompt', False),
-                enhance_prompt_instruction=params.get('enhance_prompt_instruction'),  # 🔥 FIX: Add missing param
-                negative_prompt=params.get('negative_prompt', ''),
-                ultra=params.get('ultra', False),
-                seed=params.get('seed')  # 🔥 FIX: Add seed parameter
-            )
-        elif 'photoreal' in str(type(self.engine)).lower():
-            from .schemas import LeonardoPhotoRealRequest
-            return LeonardoPhotoRealRequest(
-                prompt=prompt,
-                num_outputs=params.get('num_outputs', 1),
-                width=params.get('width', 1024),
-                height=params.get('height', 1024),
-                photoreal_version=params.get('photoreal_version', 'v2'),
-                model_id=params.get('model_id'),
-                style=params.get('style', 'CINEMATIC'),  # 🔥 FIX: Provide default for required field
-                contrast=params.get('contrast', 3.5),
-                photoreal_strength=params.get('photoreal_strength'),  # 🔥 FIX: Optional - can be None
-                enhance_prompt=params.get('enhance_prompt', False),
-                negative_prompt=params.get('negative_prompt', '')
-            )
-        else:
-            # Fallback to generic request
-            return GenerationRequest(
-                prompt=prompt,
-                num_outputs=params.get('num_outputs', 1)
-            )
+        """Create a generation request from prompt and parameters using factory."""
+        # Use the shared factory instead of duplicated logic
+        engine_type = str(type(self.engine)).lower()
+        return ImageGenerationRequestFactory.from_batch_params(prompt, params, engine_type)
     
     async def _save_job_images(self, job: BatchJob, result: GenerationResult) -> List[str]:
         """Save images from generation result and return file paths."""

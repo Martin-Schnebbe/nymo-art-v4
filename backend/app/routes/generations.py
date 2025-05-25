@@ -21,6 +21,7 @@ from core.engine.leonardo.phoenix import PhoenixEngine
 from core.engine.leonardo.flux import FluxEngine
 from core.engine.leonardo.photoreal import LeonardoPhotoRealEngine
 from core.engine.base import engine_registry
+from core.modules.image_generation_workflow import ImageGenerationWorkflow, ImageGenerationRequestFactory
 
 
 logger = logging.getLogger(__name__)
@@ -123,47 +124,24 @@ async def generate_phoenix_images(
     """Generate images using Leonardo Phoenix model."""
     
     try:
-        # Convert API request to engine request
-        engine_request = LeonardoPhoenixRequest(
-            prompt=request.prompt,
-            num_outputs=request.num_images,
-            width=request.width,
-            height=request.height,
-            style=request.style,
-            contrast=request.contrast,
-            alchemy=request.alchemy,
-            enhance_prompt=request.enhance_prompt,
-            negative_prompt=request.negative_prompt,
-            upscale=request.upscale,
-            upscale_strength=request.upscale_strength
-        )
+        # Create workflow
+        workflow = ImageGenerationWorkflow(engine)
         
-        # Generate images
-        logger.info(f"Starting Phoenix generation: {request.prompt[:50]}...")
-        result = await engine.generate(engine_request)
+        # Convert API request to engine request using factory
+        engine_request = ImageGenerationRequestFactory.from_api_request(request, "phoenix")
         
-        # Save images and create URLs
-        output_dir = Path("generated_images")
-        output_dir.mkdir(exist_ok=True)
+        # Use shared workflow
+        result = await workflow.generate_and_save(engine_request)
         
-        image_urls = []
-        for i, image_data in enumerate(result.outputs):
-            filename = f"{result.metadata.generation_id}_{i+1}.png"
-            filepath = output_dir / filename
-            filepath.write_bytes(image_data)
-            
-            # In production, use proper URL construction
-            image_urls.append(f"/images/{filename}")
-        
-        logger.info(f"Generated {len(result.outputs)} images successfully")
+        logger.info(f"Generated {result['num_images']} Phoenix images successfully")
         
         return ImageGenerationResponse(
-            generation_id=result.metadata.generation_id,
-            status="complete",
-            num_images=len(result.outputs),
-            image_urls=image_urls,
-            metadata=result.metadata.parameters,
-            cost_estimate=result.metadata.cost_estimate
+            generation_id=result["generation_id"],
+            status=result["status"],
+            num_images=result["num_images"],
+            image_urls=result["image_urls"],
+            metadata=result["metadata"],
+            cost_estimate=result["cost_estimate"]
         )
         
     except ValueError as e:
@@ -183,48 +161,24 @@ async def generate_flux_images(
     """Generate images using Leonardo FLUX model."""
     
     try:
-        # Convert API request to engine request
-        engine_request = LeonardoFluxRequest(
-            prompt=request.prompt,
-            num_outputs=request.num_images,
-            width=request.width,
-            height=request.height,
-            model_type=request.model_type,
-            style=request.style,
-            contrast=request.contrast,
-            enhance_prompt=request.enhance_prompt,
-            enhance_prompt_instruction=request.enhance_prompt_instruction,
-            negative_prompt=request.negative_prompt,
-            ultra=request.ultra,
-            seed=request.seed
-        )
+        # Create workflow
+        workflow = ImageGenerationWorkflow(engine)
         
-        # Generate images
-        logger.info(f"Starting FLUX generation: {request.prompt[:50]}...")
-        result = await engine.generate(engine_request)
+        # Convert API request to engine request using factory
+        engine_request = ImageGenerationRequestFactory.from_api_request(request, "flux")
         
-        # Save images and create URLs
-        output_dir = Path("generated_images")
-        output_dir.mkdir(exist_ok=True)
+        # Use shared workflow
+        result = await workflow.generate_and_save(engine_request)
         
-        image_urls = []
-        for i, image_data in enumerate(result.outputs):
-            filename = f"{result.metadata.generation_id}_{i+1}.png"
-            filepath = output_dir / filename
-            filepath.write_bytes(image_data)
-            
-            # In production, use proper URL construction
-            image_urls.append(f"/images/{filename}")
-        
-        logger.info(f"Generated {len(result.outputs)} images successfully")
+        logger.info(f"Generated {result['num_images']} FLUX images successfully")
         
         return ImageGenerationResponse(
-            generation_id=result.metadata.generation_id,
-            status="complete",
-            num_images=len(result.outputs),
-            image_urls=image_urls,
-            metadata=result.metadata.parameters,
-            cost_estimate=result.metadata.cost_estimate
+            generation_id=result["generation_id"],
+            status=result["status"],
+            num_images=result["num_images"],
+            image_urls=result["image_urls"],
+            metadata=result["metadata"],
+            cost_estimate=result["cost_estimate"]
         )
         
     except ValueError as e:
@@ -244,47 +198,24 @@ async def generate_photoreal_images(
     """Generate images using Leonardo PhotoReal model."""
     
     try:
-        # Convert API request to engine request
-        engine_request = LeonardoPhotoRealRequest(
-            prompt=request.prompt,
-            num_outputs=request.num_images,
-            width=request.width,
-            height=request.height,
-            photoreal_version=request.photoreal_version,
-            model_id=request.model_id,
-            style=request.style,
-            contrast=request.contrast,
-            photoreal_strength=request.photoreal_strength,
-            enhance_prompt=request.enhance_prompt,
-            negative_prompt=request.negative_prompt
-        )
+        # Create workflow
+        workflow = ImageGenerationWorkflow(engine)
         
-        # Generate images
-        logger.info(f"Starting PhotoReal {request.photoreal_version} generation: {request.prompt[:50]}...")
-        result = await engine.generate(engine_request)
+        # Convert API request to engine request using factory
+        engine_request = ImageGenerationRequestFactory.from_api_request(request, "photoreal")
         
-        # Save images and create URLs
-        output_dir = Path("generated_images")
-        output_dir.mkdir(exist_ok=True)
+        # Use shared workflow
+        result = await workflow.generate_and_save(engine_request)
         
-        image_urls = []
-        for i, image_data in enumerate(result.outputs):
-            filename = f"{result.metadata.generation_id}_{i+1}.png"
-            filepath = output_dir / filename
-            filepath.write_bytes(image_data)
-            
-            # In production, use proper URL construction
-            image_urls.append(f"/images/{filename}")
-        
-        logger.info(f"Generated {len(result.outputs)} images successfully")
+        logger.info(f"Generated {result['num_images']} PhotoReal images successfully")
         
         return ImageGenerationResponse(
-            generation_id=result.metadata.generation_id,
-            status="complete",
-            num_images=len(result.outputs),
-            image_urls=image_urls,
-            metadata=result.metadata.parameters,
-            cost_estimate=result.metadata.cost_estimate
+            generation_id=result["generation_id"],
+            status=result["status"],
+            num_images=result["num_images"],
+            image_urls=result["image_urls"],
+            metadata=result["metadata"],
+            cost_estimate=result["cost_estimate"]
         )
         
     except ValueError as e:

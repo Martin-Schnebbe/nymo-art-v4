@@ -32,9 +32,8 @@ import PhotoRealSettings from '../components/PhotoRealSettings';
 import ImageGallery from '../components/ImageGallery';
 import { useFormData } from '../hooks/useFormData';
 
-import { generatePhoenix, type PhoenixParams } from '../services/phoenixClient';
-import { generateFlux, type FluxParams } from '../services/fluxClient';
-import { generatePhotoReal, type PhotoRealParams } from '../services/photorealClient';
+import { generateImages, validateGenerationParams } from '../services/imageGenerationService';
+import { downloadImage } from '../utils/imageUtils';
 
 const Generate = () => {
   const [selectedModel, setSelectedModel] = useState<'phoenix' | 'flux' | 'photoreal'>('phoenix');
@@ -55,87 +54,19 @@ const Generate = () => {
     setError(null);
     
     try {
-      let result;
-      
-      if (selectedModel === 'phoenix') {
-        const phoenixParams: PhoenixParams = {
-          prompt: formData.prompt,
-          width: formData.width,
-          height: formData.height,
-          num_images: formData.num_images,
-          style: formData.style,
-          contrast: formData.contrast,
-          alchemy: formData.alchemy,
-          enhance_prompt: formData.enhance_prompt,
-          negative_prompt: formData.negative_prompt,
-          upscale: formData.upscale,
-          upscale_strength: formData.upscale_strength,
-        };
-        result = await generatePhoenix(phoenixParams);
-      } else if (selectedModel === 'flux') {
-        const fluxParams: FluxParams = {
-          prompt: formData.prompt,
-          width: formData.width,
-          height: formData.height,
-          num_images: formData.num_images,
-          model_type: formData.model_type,
-          style: formData.style,
-          contrast: formData.contrast,
-          enhance_prompt: formData.enhance_prompt,
-          enhance_prompt_instruction: formData.enhance_prompt_instruction,
-          negative_prompt: formData.negative_prompt,
-          ultra: formData.ultra,
-          seed: formData.seed,
-        };
-        result = await generateFlux(fluxParams);
-      } else if (selectedModel === 'photoreal') {
-        const photorealParams: PhotoRealParams = {
-          prompt: formData.prompt,
-          width: formData.width,
-          height: formData.height,
-          num_images: formData.num_images,
-          photoreal_version: formData.photoreal_version,
-          model_id: formData.photoreal_version === 'v2' ? formData.model_id : undefined,
-          style: formData.style,
-          contrast: formData.contrast,
-          photoreal_strength: formData.photoreal_version === 'v1' ? formData.photoreal_strength : undefined,
-          enhance_prompt: formData.enhance_prompt,
-          negative_prompt: formData.negative_prompt,
-        };
-        result = await generatePhotoReal(photorealParams);
+      // Validate parameters first
+      const validation = validateGenerationParams(selectedModel, formData);
+      if (!validation.isValid) {
+        setError(validation.errors.join(', '));
+        return;
       }
+
+      // Generate images using unified service
+      const result = await generateImages(selectedModel, formData);
       
-      // Convert image URLs to base64 for display
-      if (result && result.image_urls && result.image_urls.length > 0) {
-        const imagePromises = result.image_urls.map(async (url) => {
-          try {
-            const fullUrl = url.startsWith('http') ? url : `http://localhost:8000${url}`;
-            const response = await fetch(fullUrl);
-            if (!response.ok) {
-              throw new Error(`Failed to fetch image: ${response.status}`);
-            }
-            
-            const blob = await response.blob();
-            return new Promise<string>((resolve, reject) => {
-              const reader = new FileReader();
-              reader.onloadend = () => {
-                const base64 = reader.result as string;
-                resolve(base64.split(',')[1]);
-              };
-              reader.onerror = reject;
-              reader.readAsDataURL(blob);
-            });
-          } catch (err) {
-            console.error('Error fetching image:', err);
-            throw err;
-          }
-        });
-        
-        const base64Images = await Promise.all(imagePromises);
-        setImages(base64Images);
-      } else {
-        setError('No images were generated');
-      }
+      // Set the base64 images for display
+      setImages(result.images);
+      
     } catch (err) {
       console.error('Generation error:', err);
       setError(err instanceof Error ? err.message : 'Something went wrong');
@@ -144,11 +75,8 @@ const Generate = () => {
     }
   };
 
-  const downloadImage = (imageData: string, index: number) => {
-    const link = document.createElement('a');
-    link.href = `data:image/png;base64,${imageData}`;
-    link.download = `nymo-art-${Date.now()}-${index + 1}.png`;
-    link.click();
+  const handleDownloadImage = (imageData: string, index: number) => {
+    downloadImage(imageData, index);
   };
 
   return (
@@ -240,7 +168,7 @@ const Generate = () => {
                           <Select
                             name="style"
                             value={formData.style || 'Dynamic'}
-                            onChange={handleInputChange}
+                            onChange={handleSelectChange('style')}
                             label="Style"
                             sx={{ borderRadius: 2 }}
                           >
@@ -355,7 +283,7 @@ const Generate = () => {
         <Box flex={1}>
           <ImageGallery 
             images={images} 
-            onDownload={downloadImage} 
+            onDownload={handleDownloadImage} 
           />
         </Box>
       </Box>

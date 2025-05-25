@@ -81,37 +81,28 @@ def ensure_ports_available():
             if nymo_killed > 0:
                 print_status(f"Terminated {nymo_killed} Nymo processes", "SUCCESS")
                 
-                # Wait for port to clear
-                if wait_for_port_clear(port, timeout=10):
+                # Wait for port to clear or check again
+                if wait_for_port_clear(port, timeout=5):
                     print_status(f"Port {port} is now available", "SUCCESS")
                 else:
-                    print_status(f"Port {port} still occupied after cleanup", "ERROR")
-                    return False
+                    # Port might still show as occupied due to system delay or false positives
+                    print_status(f"Port {port} still shows as occupied, but continuing anyway", "WARNING")
             else:
                 print_status(f"Failed to clear Nymo processes on port {port}", "ERROR")
                 return False
         
         if non_nymo_processes:
-            print_status(f"WARNING: Port {port} is occupied by non-Nymo processes:", "WARNING")
+            print_status(f"Found {len(non_nymo_processes)} non-Nymo processes on port {port} (leaving them alone):", "INFO")
             for process in non_nymo_processes:
-                print_status(f"  - PID {process.pid}: {process.full_command[:60]}...", "WARNING")
+                print_status(f"  - PID {process.pid}: {process.full_command[:60]}...", "INFO")
             
-            response = input(f"Kill non-Nymo processes on port {port}? (y/N): ").strip().lower()
-            if response == 'y':
-                _, non_nymo_killed = kill_processes_on_port(port, kill_non_nymo=True)
-                if non_nymo_killed > 0:
-                    print_status(f"Terminated {non_nymo_killed} non-Nymo processes", "SUCCESS")
-                    if wait_for_port_clear(port, timeout=10):
-                        print_status(f"Port {port} is now available", "SUCCESS")
-                    else:
-                        print_status(f"Port {port} still occupied", "ERROR")
-                        return False
-                else:
-                    print_status(f"Failed to clear non-Nymo processes on port {port}", "ERROR")
-                    return False
+            # Check if port is still actually blocked after clearing Nymo processes
+            time.sleep(1)  # Give a moment for port to be released
+            if is_port_available(port):
+                print_status(f"Port {port} is actually available despite process listings", "SUCCESS")
             else:
-                print_status(f"Cannot start application: port {port} is occupied", "ERROR")
-                return False
+                print_status(f"Port {port} is still occupied by non-Nymo processes", "WARNING")
+                print_status("Attempting to start anyway - the process may use a different port or these may be false positives", "INFO")
     
     return True
 

@@ -11,6 +11,7 @@ import {
   Box
 } from '@mui/material';
 import { Download as DownloadIcon, Image as ImageIcon } from '@mui/icons-material';
+import { getImageGridSize } from '../utils/imageUtils';
 
 interface ImageGalleryProps {
   images: string[];
@@ -85,23 +86,8 @@ const ImageGallery = ({ images, onDownload }: ImageGalleryProps) => {
         </Typography>
         <Grid container spacing={2}>
           {images.map((image, index) => {
-            // Responsive grid logic
-            let gridSize;
-            if (images.length === 1) {
-              gridSize = { xs: 12, sm: 12, md: 12 };
-            } else if (images.length === 2) {
-              gridSize = { xs: 12, sm: 6, md: 6 };
-            } else if (images.length === 3) {
-              gridSize = { xs: 12, sm: 6, md: 4 };
-            } else if (images.length === 4) {
-              gridSize = { xs: 12, sm: 6, md: 3 };
-            } else if (images.length <= 6) {
-              gridSize = { xs: 12, sm: 6, md: 4 };
-            } else if (images.length <= 8) {
-              gridSize = { xs: 12, sm: 6, md: 3 };
-            } else {
-              gridSize = { xs: 12, sm: 4, md: 3 };
-            }
+            // Use utility function for responsive grid logic
+            const gridSize = getImageGridSize(images.length);
             
             return (
               <Grid key={index} size={gridSize}>

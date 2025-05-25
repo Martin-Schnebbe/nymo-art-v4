@@ -51,6 +51,7 @@ import {
 import { Link } from 'react-router-dom';
 import * as batchClient from '../services/batchClient';
 import type { BatchJob, BatchConfig } from '../services/batchClient';
+import { getAvailableStyles } from '../utils/modelConfig';
 
 const BatchProcess = () => {
   // Stepper state
@@ -87,30 +88,6 @@ const BatchProcess = () => {
   const [jobs, setJobs] = useState<BatchJob[]>([]);
   const [overallProgress, setOverallProgress] = useState(0);
   const [processingError, setProcessingError] = useState<string | null>(null);
-
-  // Style options for each model
-  const PHOENIX_STYLES = [
-    "3D Render", "Bokeh", "Cinematic", "Cinematic Concept", "Creative", "Dynamic", 
-    "Fashion", "Graphic Design Pop Art", "Graphic Design Vector", "HDR", "Illustration", 
-    "Macro", "Minimalist", "Moody", "None", "Portrait", "Pro B&W photography", 
-    "Pro color photography", "Pro film photography", "Portrait Fashion", "Ray Traced", 
-    "Sketch (B&W)", "Sketch (Color)", "Stock Photo", "Vibrant"
-  ];
-
-  const FLUX_STYLES = [
-    "3D Render", "Acrylic", "Anime General", "Creative", "Dynamic", "Fashion", 
-    "Game Concept", "Graphic Design 3D", "Illustration", "None", "Portrait", 
-    "Portrait Cinematic", "Ray Traced", "Stock Photo", "Watercolor"
-  ];
-
-  const PHOTOREAL_STYLES = {
-    v1: ["CINEMATIC", "CREATIVE", "VIBRANT"],
-    v2: [
-      "BOKEH", "CINEMATIC", "CINEMATIC_CLOSEUP", "CREATIVE", "FASHION", "FILM", 
-      "FOOD", "HDR", "LONG_EXPOSURE", "MACRO", "MINIMALISTIC", "MONOCHROME", 
-      "MOODY", "NEUTRAL", "PORTRAIT", "RETRO", "STOCK_PHOTO", "VIBRANT", "UNPROCESSED"
-    ]
-  };
 
   // Handle CSV file upload
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -548,22 +525,14 @@ const BatchProcess = () => {
                                   label="Style"
                                   sx={{ borderRadius: 2 }}
                                 >
-                                  {(() => {
-                                    let styles: string[] = [];
-                                    if (batchConfig.model === 'phoenix') {
-                                      styles = PHOENIX_STYLES;
-                                    } else if (batchConfig.model === 'flux') {
-                                      styles = FLUX_STYLES;
-                                    } else if (batchConfig.model === 'photoreal') {
-                                      styles = PHOTOREAL_STYLES[batchConfig.photoreal_version as 'v1' | 'v2'];
-                                    }
-                                    
-                                    return styles.map((style) => (
-                                      <MenuItem key={style} value={style}>
-                                        {style}
-                                      </MenuItem>
-                                    ));
-                                  })()}
+                                  {getAvailableStyles(
+                                    batchConfig.model,
+                                    batchConfig.photoreal_version as 'v1' | 'v2'
+                                  ).map((style) => (
+                                    <MenuItem key={style} value={style}>
+                                      {style}
+                                    </MenuItem>
+                                  ))}
                                 </Select>
                               </FormControl>
 
